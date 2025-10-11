@@ -1,0 +1,354 @@
+{
+  "title": "Pagination",
+  "slug": "pagination",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "When a response from the API includes many results, Spark will paginate them and return a subset. By default, Spark will return 25 results per page.",
+      "runs": [
+        {
+          "text": "When a response from the API includes many results, Spark will paginate them and return a subset. By default, Spark will return 25 results per page."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, `GET /v2/contacts` (Get Contacts) will only return 25 contacts even though the database can include many thousands of contacts. This makes the response quicker and easier to handle.",
+      "runs": [
+        {
+          "text": "For example,"
+        },
+        {
+          "text": "GET /v2/contacts",
+          "code": true
+        },
+        {
+          "text": "(Get Contacts) will only return 25 contacts even though the database can include many thousands of contacts. This makes the response quicker and easier to handle."
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "paragraph",
+      "text": "When a response is paginated, the response headers will include a `Link` header. The link header will be omitted if the endpoint does not support pagination or if all results fit on a single page. The link header contains URLs that you can used to fetch additional pages of results.",
+      "runs": [
+        {
+          "text": "When a response is paginated, the response headers will include a"
+        },
+        {
+          "text": "Link",
+          "code": true
+        },
+        {
+          "text": "header. The link header will be omitted if the endpoint does not support pagination or if all results fit on a single page. The link header contains URLs that you can used to fetch additional pages of results."
+        }
+      ],
+      "block_id": "paragraph-3",
+      "order": 3
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts'",
+      "lang": "shell",
+      "block_id": "code-4",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "If the response is paginated, the link header will look something like:",
+      "runs": [
+        {
+          "text": "If the response is paginated, the link header will look something like:"
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "`Link: <https://api.spark.re/v2/contacts?page=2>; rel=\"last\", <https://api.spark.re/v2/contacts?page=2>; rel=\"next\"`",
+      "runs": [
+        {
+          "text": "Link: <https://api.spark.re/v2/contacts?page=2>; rel=\"last\", <https://api.spark.re/v2/contacts?page=2>; rel=\"next\"",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-6",
+      "order": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "The link header provides the URL for the previous, next, first, and last page of results:",
+      "runs": [
+        {
+          "text": "The link header provides the URL for the previous, next, first, and last page of results:"
+        }
+      ],
+      "block_id": "paragraph-7",
+      "order": 7
+    },
+    {
+      "type": "list",
+      "style": "unordered",
+      "start": null,
+      "items": [
+        {
+          "text": "The URL for the previous page is followed by `rel=\"prev\"` .",
+          "runs": [
+            {
+              "text": "The URL for the previous page is followed by"
+            },
+            {
+              "text": "rel=\"prev\"",
+              "code": true
+            },
+            {
+              "text": "."
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "The URL for the next page is followed by `rel=\"next\"` .",
+          "runs": [
+            {
+              "text": "The URL for the next page is followed by"
+            },
+            {
+              "text": "rel=\"next\"",
+              "code": true
+            },
+            {
+              "text": "."
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "The URL for the first page is followed by `rel=\"first\"` .",
+          "runs": [
+            {
+              "text": "The URL for the first page is followed by"
+            },
+            {
+              "text": "rel=\"first\"",
+              "code": true
+            },
+            {
+              "text": "."
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "The URL for the last page is followed by `rel=\"last\"` .",
+          "runs": [
+            {
+              "text": "The URL for the last page is followed by"
+            },
+            {
+              "text": "rel=\"last\"",
+              "code": true
+            },
+            {
+              "text": "."
+            }
+          ],
+          "children": null
+        }
+      ],
+      "block_id": "list-8",
+      "order": 8
+    },
+    {
+      "type": "paragraph",
+      "text": "In some cases, only a subset of these links are available. For example, the link to the previous page won't be included if you are on the first page of results, and the link to the last page won't be included if it can't be calculated.",
+      "runs": [
+        {
+          "text": "In some cases, only a subset of these links are available. For example, the link to the previous page won't be included if you are on the first page of results, and the link to the last page won't be included if it can't be calculated."
+        }
+      ],
+      "block_id": "paragraph-9",
+      "order": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "You can use the URLs from the link header to request another page of results. For example, to request the next page of results based on the previous example:",
+      "runs": [
+        {
+          "text": "You can use the URLs from the link header to request another page of results. For example, to request the next page of results based on the previous example:"
+        }
+      ],
+      "block_id": "paragraph-10",
+      "order": 10
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts?page=2'",
+      "lang": "shell",
+      "block_id": "code-11",
+      "order": 11
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Results Per Page",
+      "slug": "results-per-page",
+      "id": "results-per-page",
+      "block_id": "h2-results-per-page",
+      "order": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "Most endpoints accept a `per_page` query parameter to control how many results are returned on a page. The maximum results permitted per page is 100.",
+      "runs": [
+        {
+          "text": "Most endpoints accept a"
+        },
+        {
+          "text": "per_page",
+          "code": true
+        },
+        {
+          "text": "query parameter to control how many results are returned on a page. The maximum results permitted per page is 100."
+        }
+      ],
+      "block_id": "paragraph-13",
+      "order": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, this request submits the `per_page` query parameter to return five results per page:",
+      "runs": [
+        {
+          "text": "For example, this request submits the"
+        },
+        {
+          "text": "per_page",
+          "code": true
+        },
+        {
+          "text": "query parameter to return five results per page:"
+        }
+      ],
+      "block_id": "paragraph-14",
+      "order": 14
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts?per_page=5'",
+      "lang": "shell",
+      "block_id": "code-15",
+      "order": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "When the `per_page` parameter is submitted, it will be included in the response link header:",
+      "runs": [
+        {
+          "text": "When the"
+        },
+        {
+          "text": "per_page",
+          "code": true
+        },
+        {
+          "text": "parameter is submitted, it will be included in the response link header:"
+        }
+      ],
+      "block_id": "paragraph-16",
+      "order": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "`Link: <https://api.spark.re/v2/contacts?page=2&per_page=5>; rel=\"last\", <https://api.spark.re/v2/contacts?page=2&per_page=5>; rel=\"next\"`",
+      "runs": [
+        {
+          "text": "Link: <https://api.spark.re/v2/contacts?page=2&per_page=5>; rel=\"last\", <https://api.spark.re/v2/contacts?page=2&per_page=5>; rel=\"next\"",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-17",
+      "order": 17
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Request Parameters",
+      "slug": "request-parameters",
+      "id": "request-parameters",
+      "block_id": "h2-request-parameters",
+      "order": 18
+    },
+    {
+      "type": "paragraph",
+      "text": "When submitting a request that includes query parameters for filtering & ordering, the response link header will include them.",
+      "runs": [
+        {
+          "text": "When submitting a request that includes query parameters for filtering & ordering, the response link header will include them."
+        }
+      ],
+      "block_id": "paragraph-19",
+      "order": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, this request submits the `first_name_cont` query parameter to return contacts who's first name contains John:",
+      "runs": [
+        {
+          "text": "For example, this request submits the"
+        },
+        {
+          "text": "first_name_cont",
+          "code": true
+        },
+        {
+          "text": "query parameter to return contacts who's first name contains John:"
+        }
+      ],
+      "block_id": "paragraph-20",
+      "order": 20
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts?first_name_cont=John'",
+      "lang": "shell",
+      "block_id": "code-21",
+      "order": 21
+    },
+    {
+      "type": "paragraph",
+      "text": "When the `first_name_cont` parameter is submitted, it will be included in the response link header:",
+      "runs": [
+        {
+          "text": "When the"
+        },
+        {
+          "text": "first_name_cont",
+          "code": true
+        },
+        {
+          "text": "parameter is submitted, it will be included in the response link header:"
+        }
+      ],
+      "block_id": "paragraph-22",
+      "order": 22
+    },
+    {
+      "type": "paragraph",
+      "text": "`Link: <https://api.spark.re/v2/contacts?page=2&first_name_cont=John>; rel=\"last\", <https://api.spark.re/v2/contacts?page=2&first_name_cont=John>; rel=\"next\"`",
+      "runs": [
+        {
+          "text": "Link: <https://api.spark.re/v2/contacts?page=2&first_name_cont=John>; rel=\"last\", <https://api.spark.re/v2/contacts?page=2&first_name_cont=John>; rel=\"next\"",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-23",
+      "order": 23
+    }
+  ]
+}

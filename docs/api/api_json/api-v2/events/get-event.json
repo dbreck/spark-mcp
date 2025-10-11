@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "events",
+  "resource_title": "Events",
+  "name": "Get Event",
+  "method": "GET",
+  "path": "/v2/events/:id",
+  "url": "https://api.spark.re/v2/events/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An event in a team members calendar.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An event in a team members calendar.",
+      "runs": [
+        {
+          "text": "An event in a team members calendar."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "87e679fe-94c4-468d-83a9-ee6eba256c44"
+}

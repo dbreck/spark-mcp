@@ -1,0 +1,92 @@
+{
+  "type": "endpoint",
+  "resource": "floorplans",
+  "resource_title": "Floorplans",
+  "name": "Get Floorplans",
+  "method": "GET",
+  "path": "/v2/floorplans",
+  "url": "https://api.spark.re/v2/floorplans",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "created_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "name_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "updated_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A floorplan is a common floor layout associated with multiple units (inventory).",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A floorplan is a common floor layout associated with multiple units (inventory).",
+      "runs": [
+        {
+          "text": "A floorplan is a common floor layout associated with multiple units (inventory)."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "7340ec2c-d404-45d4-8c97-aa0e694c1399"
+}

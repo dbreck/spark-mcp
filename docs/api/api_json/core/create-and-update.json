@@ -1,0 +1,236 @@
+{
+  "title": "Create & Update",
+  "slug": "create-and-update",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "For all create (via POST) or update (via PUT) requests, you will need to keep the following requirements in mind:",
+      "runs": [
+        {
+          "text": "For all create (via POST) or update (via PUT) requests, you will need to keep the following requirements in mind:"
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Company API key vs Project API key",
+      "slug": "company-api-key-vs-project-api-key",
+      "id": "company-api-key-vs-project-api-key",
+      "block_id": "h2-company-api-key-vs-project-api-key",
+      "order": 2
+    },
+    {
+      "type": "paragraph",
+      "text": "Our API only supports creating or updating data from a project api key. This means if you're working with a company api key, you will get an error when submitting the request. We will be supporting these request types from a company api key in the near future.",
+      "runs": [
+        {
+          "text": "Our API only supports creating or updating data from a project api key. This means if you're working with a company api key, you will get an error when submitting the request. We will be supporting these request types from a company api key in the near future."
+        }
+      ],
+      "block_id": "paragraph-3",
+      "order": 3
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Content Type",
+      "slug": "content-type",
+      "id": "content-type",
+      "block_id": "h2-content-type",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "Spark accepts data for processing in JSON (https://en.wikipedia.org/wiki/JSON) format. A header should be submitted with all create or update requests, in the following format:",
+      "runs": [
+        {
+          "text": "Spark accepts data for processing in"
+        },
+        {
+          "text": "JSON",
+          "link": "https://en.wikipedia.org/wiki/JSON"
+        },
+        {
+          "text": "format. A header should be submitted with all create or update requests, in the following format:"
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "`Content-Type: application/json`",
+      "runs": [
+        {
+          "text": "Content-Type: application/json",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-6",
+      "order": 6
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "text": "The content type header is set automatically in Postman as part of the request. The body is set to pass in raw text in JSON. There is no need to manually add it to each Postman request.",
+      "runs": [
+        {
+          "text": "Note"
+        },
+        {
+          "text": ": The content type header is set automatically in Postman as part of the request. The body is set to pass in raw text in JSON. There is no need to manually add it to each Postman request."
+        }
+      ],
+      "block_id": "callout-7",
+      "order": 7
+    },
+    {
+      "type": "paragraph",
+      "text": "Example:",
+      "runs": [
+        {
+          "text": "Example:"
+        }
+      ],
+      "block_id": "paragraph-8",
+      "order": 8
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts' \\\n     --header 'Content-Type: application/json' \\\n     --data-raw '{ \"email\": \"john@sparkreexample.com\" }'",
+      "lang": "shell",
+      "block_id": "code-9",
+      "order": 9
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Date & Time Formats",
+      "slug": "date-time-formats",
+      "id": "date-time-formats",
+      "block_id": "h2-date-time-formats",
+      "order": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "All dates and times are accepted following the ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) standard. The following dates and times are all considered the same, and will be processed regardless of the format provided.",
+      "runs": [
+        {
+          "text": "All dates and times are accepted following the"
+        },
+        {
+          "text": "ISO 8601",
+          "link": "https://en.wikipedia.org/wiki/ISO_8601"
+        },
+        {
+          "text": "standard. The following dates and times are all considered the same, and will be processed regardless of the format provided."
+        }
+      ],
+      "block_id": "paragraph-11",
+      "order": 11
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "text": "If a date is submitted where a date and time is expected, the time will be set to 00:00.",
+      "runs": [
+        {
+          "text": "Note"
+        },
+        {
+          "text": ": If a date is submitted where a date and time is expected, the time will be set to 00:00."
+        }
+      ],
+      "block_id": "callout-12",
+      "order": 12
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Timezones",
+      "slug": "timezones",
+      "id": "timezones",
+      "block_id": "h3-timezones",
+      "order": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "Dates & times in Spark are stored in UTC, so if a timezone is not specified, it will assume you've converted to UTC before submission. If a timezone is specified, Spark will adjust the time to UTC before saving the value.",
+      "runs": [
+        {
+          "text": "Dates & times in Spark are stored in UTC, so if a timezone is not specified, it will assume you've converted to UTC before submission. If a timezone is specified, Spark will adjust the time to UTC before saving the value."
+        }
+      ],
+      "block_id": "paragraph-14",
+      "order": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "If the following datetime with a timezone offset of -8 (PST) is passed, when saved and returned in UTC it will have been adjusted to the next day.",
+      "runs": [
+        {
+          "text": "If the following datetime with a timezone offset of -8 (PST) is passed, when saved and returned in UTC it will have been adjusted to the next day."
+        }
+      ],
+      "block_id": "paragraph-15",
+      "order": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "`2023-03-02T17:25:50-08:00` → `2023-03-03T01:25:50Z`",
+      "runs": [
+        {
+          "text": "2023-03-02T17:25:50-08:00",
+          "code": true
+        },
+        {
+          "text": "→"
+        },
+        {
+          "text": "2023-03-03T01:25:50Z",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-16",
+      "order": 16
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "ID vs. Page Location",
+      "slug": "id-vs-page-location",
+      "id": "id-vs-page-location",
+      "block_id": "h2-id-vs-page-location",
+      "order": 17
+    },
+    {
+      "type": "paragraph",
+      "text": "For certain API integrations, it is highly recommend to use the `ID` endpoint (if available) instead of page location. Update (via PUT) requests that targets `ID` can reduce the likelihood of issues as page locations can change over time during a project's lifespan.",
+      "runs": [
+        {
+          "text": "For certain API integrations, it is highly recommend to use the"
+        },
+        {
+          "text": "ID",
+          "code": true
+        },
+        {
+          "text": "endpoint (if available) instead of page location. Update (via PUT) requests that targets"
+        },
+        {
+          "text": "ID",
+          "code": true
+        },
+        {
+          "text": "can reduce the likelihood of issues as page locations can change over time during a project's lifespan."
+        }
+      ],
+      "block_id": "paragraph-18",
+      "order": 18
+    }
+  ]
+}

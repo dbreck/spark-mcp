@@ -1,0 +1,167 @@
+{
+  "type": "endpoint",
+  "resource": "custom-fields",
+  "resource_title": "Custom Fields",
+  "name": "Get Custom Field",
+  "method": "GET",
+  "path": "/v2/custom-fields/:id",
+  "url": "https://api.spark.re/v2/custom-fields/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A custom field is a non Spark default attribute that can be used with contacts, contracts, brokerage, inventory, reservations, and team members.\n\nA custom field on an object (like contacts) is associated to the owner record and stores it's value on the record as a custom_field_value\n\nWhen using a Company API Key:\n\nCreates a Custom Field at the company level.\n\nCreates a Custom Field at the company level.\n\nIf the field is for Contacts, Brokerages, or Team Members , it is automatically shared across all projects.\n\nIf the field is for Contacts, Brokerages, or Team Members , it is automatically shared across all projects.\n\nIf the field is for Inventory or Contracts , it is not shared by default and must be explicitly shared with projects through the UI.\n\nIf the field is for Inventory or Contracts , it is not shared by default and must be explicitly shared with projects through the UI.\n\nWhen using a Project API Key :\n\nCreates a Custom Field only at the project level.\n\nCreates a Custom Field only at the project level.\n\nThese fields remain exclusive to the project and cannot be shared across projects.\n\nThese fields remain exclusive to the project and cannot be shared across projects.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A custom field is a non Spark default attribute that can be used with contacts, contracts, brokerage, inventory, reservations, and team members.",
+      "runs": [
+        {
+          "text": "A custom field is a non Spark default attribute that can be used with contacts, contracts, brokerage, inventory, reservations, and team members."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "A custom field on an object (like contacts) is associated to the owner record and stores it's value on the record as a custom_field_value",
+      "runs": [
+        {
+          "text": "A custom field on an object (like contacts) is associated to the owner record and stores it's value on the record as a custom_field_value"
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "paragraph",
+      "text": "When using a Company API Key:",
+      "runs": [
+        {
+          "text": "When using a"
+        },
+        {
+          "text": "Company API Key:"
+        }
+      ],
+      "block_id": "paragraph-3",
+      "order": 3
+    },
+    {
+      "type": "list",
+      "style": "unordered",
+      "start": null,
+      "items": [
+        {
+          "text": "Creates a Custom Field at the company level.",
+          "runs": [
+            {
+              "text": "Creates a Custom Field at the company level."
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "If the field is for Contacts, Brokerages, or Team Members , it is automatically shared across all projects.",
+          "runs": [
+            {
+              "text": "If the field is for"
+            },
+            {
+              "text": "Contacts, Brokerages, or Team Members"
+            },
+            {
+              "text": ", it is automatically shared across all projects."
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "If the field is for Inventory or Contracts , it is not shared by default and must be explicitly shared with projects through the UI.",
+          "runs": [
+            {
+              "text": "If the field is for"
+            },
+            {
+              "text": "Inventory or Contracts"
+            },
+            {
+              "text": ", it is"
+            },
+            {
+              "text": "not shared by default"
+            },
+            {
+              "text": "and must be explicitly shared with projects through the UI."
+            }
+          ],
+          "children": null
+        }
+      ],
+      "block_id": "list-4",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "When using a Project API Key :",
+      "runs": [
+        {
+          "text": "When using a"
+        },
+        {
+          "text": "Project API Key"
+        },
+        {
+          "text": ":"
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "list",
+      "style": "unordered",
+      "start": null,
+      "items": [
+        {
+          "text": "Creates a Custom Field only at the project level.",
+          "runs": [
+            {
+              "text": "Creates a Custom Field only at the project level."
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "These fields remain exclusive to the project and cannot be shared across projects.",
+          "runs": [
+            {
+              "text": "These fields remain exclusive to the project and cannot be shared across projects."
+            }
+          ],
+          "children": null
+        }
+      ],
+      "block_id": "list-6",
+      "order": 6
+    }
+  ],
+  "postman_id": "7c33b813-54bf-43a3-a74e-f203175ff7fe"
+}

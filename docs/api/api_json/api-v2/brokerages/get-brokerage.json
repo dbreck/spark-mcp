@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "brokerages",
+  "resource_title": "Brokerages",
+  "name": "Get Brokerage",
+  "method": "GET",
+  "path": "/v2/brokerages/:id",
+  "url": "https://api.spark.re/v2/brokerages/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A brokerage is a company that a real estate agent works for, and is the recipient of external commissions on a contract or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A brokerage is a company that a real estate agent works for, and is the recipient of external commissions on a contract or reservation.",
+      "runs": [
+        {
+          "text": "A brokerage is a company that a real estate agent works for, and is the recipient of external commissions on a contract or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "a66b6ba1-a63f-4617-bc55-2ea274a623b8"
+}

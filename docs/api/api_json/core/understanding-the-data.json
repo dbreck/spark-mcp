@@ -1,0 +1,191 @@
+{
+  "title": "Understanding the Data",
+  "slug": "understanding-the-data",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Companies & Projects",
+      "slug": "companies-projects",
+      "id": "companies-projects",
+      "block_id": "h2-companies-projects",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Data in Spark is stored and returned at 2 levels. You are able to create an API key at a company or project level, and depending on the which is submitted with the request, you will receive different data in return:",
+      "runs": [
+        {
+          "text": "Data in Spark is stored and returned at 2 levels. You are able to create an API key at a company or project level, and depending on the which is submitted with the request, you will receive different data in return:"
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Company",
+      "slug": "company",
+      "id": "company",
+      "block_id": "h3-company",
+      "order": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "A company is a real estate developer, marketing firm, or brokerage using the Spark platform. All of our data is separated on a per company basis.",
+      "runs": [
+        {
+          "text": "A company is a real estate developer, marketing firm, or brokerage using the Spark platform. All of our data is separated on a per company basis."
+        }
+      ],
+      "block_id": "paragraph-4",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "When accessing the API using a company API key, it will return data for all of the projects that belong to it.",
+      "runs": [
+        {
+          "text": "When accessing the API using a company API key, it will return data for all of the projects that belong to it."
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Project",
+      "slug": "project",
+      "id": "project",
+      "block_id": "h3-project",
+      "order": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "A project is an indivdual real estate development, usually a single building that is being sold or leased. All projects belong to a single company, but a company can have multiple projects.",
+      "runs": [
+        {
+          "text": "A project is an indivdual real estate development, usually a single building that is being sold or leased. All projects belong to a single company, but a company can have multiple projects."
+        }
+      ],
+      "block_id": "paragraph-7",
+      "order": 7
+    },
+    {
+      "type": "paragraph",
+      "text": "When accessing the API using a project API key, it will only return data for that project.",
+      "runs": [
+        {
+          "text": "When accessing the API using a project API key, it will only return data for that project."
+        }
+      ],
+      "block_id": "paragraph-8",
+      "order": 8
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Formats",
+      "slug": "formats",
+      "id": "formats",
+      "block_id": "h2-formats",
+      "order": 9
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Dates & Times",
+      "slug": "dates-times",
+      "id": "dates-times",
+      "block_id": "h3-dates-times",
+      "order": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "All dates and times are returned following the ISO 8601 (https://en.wikipedia.org/wiki/ISO_8601) standard, in UTC (referred to as Z, meaning zero offset):",
+      "runs": [
+        {
+          "text": "All dates and times are returned following the"
+        },
+        {
+          "text": "ISO 8601",
+          "link": "https://en.wikipedia.org/wiki/ISO_8601"
+        },
+        {
+          "text": "standard, in UTC (referred to as Z, meaning zero offset):"
+        }
+      ],
+      "block_id": "paragraph-11",
+      "order": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "`\"created_at\": \"2023-03-02T20:17:00Z\"`",
+      "runs": [
+        {
+          "text": "\"created_at\": \"2023-03-02T20:17:00Z\"",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-12",
+      "order": 12
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Money",
+      "slug": "money",
+      "id": "money",
+      "block_id": "h3-money",
+      "order": 13
+    },
+    {
+      "type": "paragraph",
+      "text": "All monetary values are returned in cents:",
+      "runs": [
+        {
+          "text": "All monetary values are returned in cents:"
+        }
+      ],
+      "block_id": "paragraph-14",
+      "order": 14
+    },
+    {
+      "type": "paragraph",
+      "text": "`\"purchase_price\": 142679200`",
+      "runs": [
+        {
+          "text": "\"purchase_price\": 142679200",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-15",
+      "order": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "Prices and other monetary values will need to be converted by moving the decimal place based on the currency you are working with.",
+      "runs": [
+        {
+          "text": "Prices and other monetary values will need to be converted by moving the decimal place based on the currency you are working with."
+        }
+      ],
+      "block_id": "paragraph-16",
+      "order": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, to convert to a currency that has 2 decimal places, (like USD/CAD), divide the value by 100.",
+      "runs": [
+        {
+          "text": "For example, to convert to a currency that has 2 decimal places, (like USD/CAD), divide the value by 100."
+        }
+      ],
+      "block_id": "paragraph-17",
+      "order": 17
+    }
+  ]
+}

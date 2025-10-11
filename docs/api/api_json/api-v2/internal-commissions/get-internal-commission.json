@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "internal-commissions",
+  "resource_title": "Internal Commisions",
+  "name": "Get Internal Commission",
+  "method": "GET",
+  "path": "/v2/internal-commissions/:id",
+  "url": "https://api.spark.re/v2/internal-commissions/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An internal commission is a monitary amount paid to a team member after a successful real estate sale.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An internal commission is a monitary amount paid to a team member after a successful real estate sale.",
+      "runs": [
+        {
+          "text": "An internal commission is a monitary amount paid to a team member after a successful real estate sale."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "b4a1a60c-a918-4d74-bf09-5aaba194a4c0"
+}

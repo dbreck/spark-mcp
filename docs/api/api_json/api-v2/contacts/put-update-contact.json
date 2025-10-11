@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "contacts",
+  "resource_title": "Contacts",
+  "name": "Update Contact",
+  "method": "PUT",
+  "path": "/v2/contacts/:id",
+  "url": "https://api.spark.re/v2/contacts/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": "{\n    // See the POST /v2/contacts (Create Contact) Body for a \n    // full list of available fields, and the expected format \n    // for submitting values.\n\n    \"email\": \"April.Rau86@example.com\",\n    \"city\": \"Schmelerview\",\n    \"first_name\": \"Bertram\",\n    \"last_name\": \"MacGyver\"\n}",
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contact is a registrant, lead, or person that is interested in, or has purchased a unit with the project or company. These contacts can self register, be imported, or transfered from another project.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contact is a registrant, lead, or person that is interested in, or has purchased a unit with the project or company. These contacts can self register, be imported, or transfered from another project.",
+      "runs": [
+        {
+          "text": "A contact is a registrant, lead, or person that is interested in, or has purchased a unit with the project or company. These contacts can self register, be imported, or transfered from another project."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "e371d6e7-256b-4eae-981a-898f13c789d0"
+}

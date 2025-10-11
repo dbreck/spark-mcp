@@ -1,0 +1,32 @@
+{
+  "type": "endpoint",
+  "resource": "reservations",
+  "resource_title": "Reservations",
+  "name": "Get Reservation",
+  "method": "GET",
+  "path": "/v2/reservations/:id",
+  "url": "https://api.spark.re/v2/reservations/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "",
+  "notes_blocks": [],
+  "postman_id": "eb2a24d7-9466-4f2f-b205-a4403a8a6e78"
+}

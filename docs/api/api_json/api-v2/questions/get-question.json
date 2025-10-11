@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "questions",
+  "resource_title": "Questions",
+  "name": "Get Question",
+  "method": "GET",
+  "path": "/v2/questions/:id",
+  "url": "https://api.spark.re/v2/questions/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A question can be answered by a contact, usually through a registration form, a visit to a sales center, or via some other form of communication. They are often used to track information about what a contact is interested in purchasing, their budget, or when they'd like to purchase.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A question can be answered by a contact, usually through a registration form, a visit to a sales center, or via some other form of communication. They are often used to track information about what a contact is interested in purchasing, their budget, or when they'd like to purchase.",
+      "runs": [
+        {
+          "text": "A question can be answered by a contact, usually through a registration form, a visit to a sales center, or via some other form of communication. They are often used to track information about what a contact is interested in purchasing, their budget, or when they'd like to purchase."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "77aadfc5-8131-4443-9c37-7d68533f2082"
+}

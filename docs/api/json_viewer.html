@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docs Viewer</title>
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --panel: #0f141b;
+            --panel-2: #0c1117;
+            --border: #1f2a37;
+            --text: #e5e7eb;
+            --muted: #9ca3af;
+            --accent: #60a5fa;
+            --accent-2: #22d3ee;
+            --chip: #111827;
+            --btn-bg: #111827;
+            --btn-border: #1f2937;
+            --btn-hover: #0b1220;
+            --sidebar-bg: #0c1117;
+            --brand: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+        }
+        
+        .light {
+            --bg: #f8fafc;
+            --panel: #ffffff;
+            --panel-2: #f8fafc;
+            --border: #e5e7eb;
+            --text: #111827;
+            --muted: #6b7280;
+            --accent: #2563eb;
+            --accent-2: #0ea5e9;
+            --chip: #f3f4f6;
+            --btn-bg: #f9fafb;
+            --btn-border: #e5e7eb;
+            --btn-hover: #f3f4f6;
+            --sidebar-bg: #f8fafc;
+            --brand: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            background: var(--brand);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--btn-bg);
+            border: 1px solid var(--btn-border);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+        .theme-toggle:hover { background: var(--btn-hover); }
+        .theme-toggle input { display: none; }
+        .theme-toggle .label { font-size: 12px; color: var(--muted); }
+
+        .badge {
+            font-size: 12px;
+            color: var(--muted);
+            background: var(--chip);
+            border: 1px solid var(--border);
+            padding: 6px 8px;
+            border-radius: 999px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 12px;
+            flex: 1;
+            background: var(--panel);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            padding: 16px;
+            overflow-y: auto;
+            max-height: 100vh;
+            position: sticky;
+            top: 0;
+        }
+
+        .sidebar h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .file-list {
+            list-style: none;
+        }
+
+        .file-item {
+            margin-bottom: 8px;
+        }
+
+        .file-group { margin-bottom: 14px; }
+        .file-group-title { font-size: 12px; color: var(--muted); margin: 8px 0; text-transform: uppercase; letter-spacing: .08em; }
+        .file-button {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--btn-bg);
+            border: 1px solid var(--btn-border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+
+        .file-button:hover {
+            background: var(--btn-hover);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .file-button.active {
+            background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(34,211,238,0.15));
+            color: var(--text);
+            border-color: var(--accent);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+        }
+
+        .file-button .file-name { color: var(--text);
+            font-weight: 600;
+            display: block;
+        }
+
+        .file-button .file-size { color: var(--muted);
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .content-area { background: var(--panel-2); border-left: 1px solid var(--border);
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .content-header h2 { color: var(--text);
+            color: #495057;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .content-meta { color: var(--muted);
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .json-container { background: var(--panel); border: 1px solid var(--border);
+            flex: 1;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            overflow: auto;
+            position: relative;
+        }
+
+        .json-content { color: var(--text);
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .json-tree {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .json-key { color: #f43f5e;
+            color: #d73a49;
+            font-weight: 600;
+        }
+
+        .json-string {
+            color: #032f62;
+        }
+
+        .json-number {
+            color: #005cc5;
+        }
+
+        .json-boolean {
+            color: #e36209;
+            font-weight: 600;
+        }
+
+        .json-null {
+            color: #6f42c1;
+            font-weight: 600;
+        }
+
+        .json-bracket {
+            color: #24292e;
+            font-weight: bold;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .collapsible:before {
+            content: '▼ ';
+            color: #6c757d;
+            margin-right: 5px;
+        }
+
+        .collapsible.collapsed:before {
+            content: '▶ ';
+        }
+
+        .collapsed-content {
+            display: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+        }
+
+        .json-string-container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .json-string-quote {
+            color: #032f62;
+        }
+
+        .json-html-content {
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 4px 8px;
+            max-width: 600px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            vertical-align: top;
+        }
+
+        .json-html-content h1, .json-html-content h2, .json-html-content h3,
+        .json-html-content h4, .json-html-content h5, .json-html-content h6 {
+            margin: 0.5em 0;
+            color: #24292e;
+        }
+
+        .json-html-content p {
+            margin: 0.5em 0;
+            line-height: 1.5;
+        }
+
+        .json-html-content a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        .json-html-content a:hover {
+            text-decoration: underline;
+        }
+
+        .json-html-content ul, .json-html-content ol {
+            margin: 0.5em 0;
+            padding-left: 2em;
+        }
+
+        .json-html-content code {
+            background: #f6f8fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .toggle-html-btn {
+            background: #f1f3f4;
+            border: 1px solid #d1d5da;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 0.8em;
+            cursor: pointer;
+            margin-left: 8px;
+            color: #586069;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-html-btn:hover {
+            background: #e1e4e8;
+            border-color: #c6cbd1;
+        }
+
+        .json-raw-content {
+            display: none;
+            background: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 4px 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            color: #586069;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-width: 600px;
+        }
+
+        .json-string-container.show-raw .json-html-content {
+            display: none;
+        }
+
+        .json-string-container.show-raw .json-raw-content {
+            display: block;
+        }
+
+        .json-string-container.show-raw .toggle-text::before {
+            content: "Show Rendered";
+        }
+
+        .json-string-container:not(.show-raw) .toggle-text::before {
+            content: "Show Raw";
+        }
+
+        .toggle-text {
+            display: none;
+        }
+
+        /* Documentation rendering styles */
+        .doc-content {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            max-width: none;
+        }
+
+        .doc-content h1 {
+            font-size: 2em;
+            font-weight: 600;
+            margin: 1em 0 0.5em 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .doc-content h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 1.5em 0 0.5em 0;
+            color: var(--text);
+        }
+
+        .doc-content h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 1.2em 0 0.4em 0;
+            color: var(--text);
+        }
+
+        .doc-content h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 1em 0 0.3em 0;
+            color: var(--text);
+        }
+
+        .doc-content p {
+            margin: 0.8em 0;
+            line-height: 1.6;
+        }
+
+        .doc-content strong {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .doc-content em {
+            font-style: italic;
+            color: var(--accent-2);
+        }
+
+        .doc-content code {
+            background: var(--chip);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        .doc-content pre {
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            margin: 1em 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .doc-content pre code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: var(--text);
+        }
+
+        .doc-content a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .doc-content a:hover {
+            text-decoration: underline;
+        }
+
+        .doc-examples {
+            margin-top: 2em;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5em;
+        }
+
+        .doc-examples h3 {
+            color: var(--accent);
+            margin-bottom: 1em;
+        }
+
+        .example-item {
+            margin: 1.5em 0;
+            padding: 1em;
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .example-item h4 {
+            margin: 0 0 0.5em 0;
+            color: var(--text);
+        }
+
+        .raw-json-section {
+            margin-top: 2em;
+            border-top: 1px solid var(--border);
+            padding-top: 1em;
+        }
+
+        .toggle-raw-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--btn-border);
+            color: var(--muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-raw-btn:hover {
+            background: var(--btn-hover);
+            color: var(--text);
+        }
+
+        .raw-json-content {
+            margin-top: 1em;
+        }
+
+        .raw-json-content pre {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* API Endpoint Styles */
+        .endpoint-section {
+            margin: 2em 0;
+            padding: 1.5em;
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .method-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-right: 8px;
+            color: white;
+        }
+
+        .method-get { background-color: #28a745; }
+        .method-post { background-color: #007bff; }
+        .method-put { background-color: #ffc107; color: #212529; }
+        .method-delete { background-color: #dc3545; }
+        .method-patch { background-color: #17a2b8; }
+
+        .endpoint-path {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background: var(--chip);
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .endpoint-path code {
+            background: none;
+            padding: 0;
+            border: none;
+            color: var(--text);
+        }
+
+        .endpoint-description {
+            margin: 1em 0;
+            padding: 1em;
+            background: var(--bg);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+            background: var(--panel);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .params-table th {
+            background: var(--chip);
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .params-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .params-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .params-table code {
+            background: var(--chip);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .required {
+            color: #dc3545;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .optional {
+            color: var(--muted);
+            font-weight: 400;
+            font-size: 0.9em;
+        }
+
+        .example-request, .example-response {
+            margin: 1em 0;
+        }
+
+        .example-request pre, .example-response pre {
+            background: var(--chip);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 12px;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                max-height: 200px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+
+            .json-html-content,
+            .json-raw-content {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Docs Viewer</h1>
+            <div class="header-controls">
+                <span class="badge" id="fileCount">0 files</span>
+                <label class="theme-toggle" id="themeToggle">
+                    <input type="checkbox" id="themeCheckbox">
+                    <span class="label">Dark</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>
+                    <span>Files</span>
+                </h3>
+                <input type="text" class="search-box" placeholder="Search files..." id="searchBox">
+                <ul class="file-list" id="fileList">
+                    <li class="loading">Loading files...</li>
+                </ul>
+            </div>
+
+            <div class="content-area">
+                <div class="content-header" id="contentHeader" style="display: none;">
+                    <h2 id="fileName">Select a file</h2>
+                    <div class="content-meta" id="fileMeta"></div>
+                </div>
+
+                <div class="json-container">
+                    <div class="empty-state" id="emptyState">
+                        <h3>Welcome to JSON Viewer</h3>
+                        <p>Select a JSON file from the sidebar to view its contents</p>
+                    </div>
+                    <div class="json-content" id="jsonContent" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+            document.documentElement.classList.add('light');
+        }
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const isLight = root.classList.toggle('light');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            document.querySelector('#themeToggle .label').textContent = isLight ? 'Light' : 'Dark';
+            const checkbox = document.getElementById('themeCheckbox');
+            if (checkbox) checkbox.checked = isLight;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('themeCheckbox');
+            const isLight = document.documentElement.classList.contains('light');
+            if (checkbox) checkbox.checked = isLight;
+            document.getElementById('themeToggle').addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleTheme();
+            });
+        });
+
+        class JSONViewer {
+            constructor() {
+                this.files = [];
+                this.currentFile = null;
+                this.init();
+            }
+
+            async init() {
+                await this.loadFiles();
+                this.setupEventListeners();
+            }
+
+            async loadFiles() {
+                try {
+                    const response = await fetch('/api/files');
+                    this.files = await response.json();
+                    this.renderFileList();
+                    document.getElementById('fileCount').textContent = `${this.files.length} files`;
+                } catch (error) {
+                    this.showError('Failed to load files: ' + error.message);
+                }
+            }
+
+            renderFileList() {
+                const fileList = document.getElementById('fileList');
+                
+                if (this.files.length === 0) {
+                    fileList.innerHTML = '<li class="empty-state"><p>No JSON files found</p></li>';
+                    return;
+                }
+
+                // Group files by category
+                const groupedFiles = this.groupFilesByCategory(this.files);
+                
+                let html = '';
+                for (const [category, files] of Object.entries(groupedFiles)) {
+                    html += `<div class="file-group">`;
+                    if (category !== 'ungrouped') {
+                        html += `<div class="file-group-title">${category}</div>`;
+                    }
+                    
+                    files.forEach(file => {
+                        html += `
+                            <div class="file-item">
+                                <button class="file-button" data-file="${file.name}">
+                                    <span class="file-name">${file.title || file.name}</span>
+                                    <span class="file-size">${this.formatFileSize(file.size)}</span>
+                                </button>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                }
+                
+                fileList.innerHTML = html;
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 B';
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+            }
+
+            setupEventListeners() {
+                // File selection
+                document.getElementById('fileList').addEventListener('click', (e) => {
+                    if (e.target.classList.contains('file-button') || e.target.closest('.file-button')) {
+                        const button = e.target.closest('.file-button');
+                        const fileName = button.dataset.file;
+                        this.selectFile(fileName);
+                    }
+                });
+
+                // Search functionality
+                document.getElementById('searchBox').addEventListener('input', (e) => {
+                    this.filterFiles(e.target.value);
+                });
+
+                // Collapsible JSON nodes
+                document.getElementById('jsonContent').addEventListener('click', (e) => {
+                    if (e.target.classList.contains('collapsible')) {
+                        e.target.classList.toggle('collapsed');
+                        const content = e.target.nextElementSibling;
+                        if (content && content.classList.contains('json-object-content')) {
+                            content.classList.toggle('collapsed-content');
+                        }
+                    }
+                });
+            }
+
+            groupFilesByCategory(files) {
+                const groups = {};
+                
+                files.forEach(file => {
+                    const category = file.category || 'Other';
+                    if (!groups[category]) {
+                        groups[category] = [];
+                    }
+                    groups[category].push(file);
+                });
+                
+                // Ensure proper ordering of categories
+                const orderedGroups = {};
+                const categoryOrder = ['Core', 'Resources', 'Forms', 'Other'];
+                
+                categoryOrder.forEach(category => {
+                    if (groups[category]) {
+                        orderedGroups[category] = groups[category];
+                    }
+                });
+                
+                // Add any remaining categories
+                Object.keys(groups).forEach(category => {
+                    if (!orderedGroups[category]) {
+                        orderedGroups[category] = groups[category];
+                    }
+                });
+                
+                return orderedGroups;
+            }
+
+            filterFiles(searchTerm) {
+                const filteredFiles = this.files.filter(file => 
+                    (file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                     (file.title && file.title.toLowerCase().includes(searchTerm.toLowerCase())))
+                );
+                
+                const fileList = document.getElementById('fileList');
+                if (filteredFiles.length === 0) {
+                    fileList.innerHTML = '<div class="empty-state"><p>No matching files</p></div>';
+                    return;
+                }
+
+                // Use the same grouped rendering for search results
+                const groupedFiles = this.groupFilesByCategory(filteredFiles);
+                
+                let html = '';
+                for (const [category, files] of Object.entries(groupedFiles)) {
+                    html += `<div class="file-group">`;
+                    if (category !== 'ungrouped') {
+                        html += `<div class="file-group-title">${category}</div>`;
+                    }
+                    
+                    files.forEach(file => {
+                        html += `
+                            <div class="file-item">
+                                <button class="file-button" data-file="${file.name}">
+                                    <span class="file-name">${file.title || file.name}</span>
+                                    <span class="file-size">${this.formatFileSize(file.size)}</span>
+                                </button>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                }
+                
+                fileList.innerHTML = html;
+            }
+
+            async selectFile(fileName) {
+                try {
+                    // Update UI
+                    document.querySelectorAll('.file-button').forEach(btn => btn.classList.remove('active'));
+                    document.querySelector(`[data-file="${fileName}"]`).classList.add('active');
+
+                    // Show loading
+                    document.getElementById('jsonContent').innerHTML = '<div class="loading">Loading...</div>';
+                    document.getElementById('emptyState').style.display = 'none';
+                    document.getElementById('jsonContent').style.display = 'block';
+
+                    // Load file content
+                    const response = await fetch(`/api/file/${encodeURIComponent(fileName)}`);
+                    const data = await response.json();
+
+                    this.currentFile = fileName;
+                    this.displayJSON(data.content, fileName, data.size);
+
+                } catch (error) {
+                    this.showError('Failed to load file: ' + error.message);
+                }
+            }
+
+            displayJSON(jsonData, fileName, fileSize) {
+                try {
+                    const parsed = typeof jsonData === 'string' ? JSON.parse(jsonData) : jsonData;
+                    
+                    // Update header with proper title
+                    document.getElementById('contentHeader').style.display = 'block';
+                    document.getElementById('fileName').textContent = parsed.title || fileName;
+                    document.getElementById('fileMeta').textContent = `${parsed.category || 'Other'} • Size: ${this.formatFileSize(fileSize)}`;
+
+                    // Display as formatted documentation instead of JSON
+                    const formatted = this.renderAsDocumentation(parsed);
+                    document.getElementById('jsonContent').innerHTML = formatted;
+                } catch (error) {
+                    this.showError('Invalid JSON: ' + error.message);
+                }
+            }
+
+            formatJSON(obj, indent = 0) {
+                const indentStr = '  '.repeat(indent);
+                
+                if (obj === null) {
+                    return '<span class="json-null">null</span>';
+                }
+                
+                if (typeof obj === 'boolean') {
+                    return `<span class="json-boolean">${obj}</span>`;
+                }
+                
+                if (typeof obj === 'number') {
+                    return `<span class="json-number">${obj}</span>`;
+                }
+                
+                if (typeof obj === 'string') {
+                    return this.formatString(obj);
+                }
+                
+                if (Array.isArray(obj)) {
+                    if (obj.length === 0) {
+                        return '<span class="json-bracket">[]</span>';
+                    }
+                    
+                    const items = obj.map(item => 
+                        `${indentStr}  ${this.formatJSON(item, indent + 1)}`
+                    ).join(',\n');
+                    
+                    return `<span class="json-bracket">[</span>\n${items}\n${indentStr}<span class="json-bracket">]</span>`;
+                }
+                
+                if (typeof obj === 'object') {
+                    const keys = Object.keys(obj);
+                    if (keys.length === 0) {
+                        return '<span class="json-bracket">{}</span>';
+                    }
+                    
+                    const isLarge = keys.length > 5;
+                    const collapsibleClass = isLarge ? 'collapsible' : '';
+                    const contentClass = isLarge ? 'json-object-content' : '';
+                    
+                    const items = keys.map(key => 
+                        `${indentStr}  <span class="json-key">"${this.escapeHtml(key)}"</span>: ${this.formatJSON(obj[key], indent + 1)}`
+                    ).join(',\n');
+                    
+                    return `<span class="json-bracket ${collapsibleClass}">{</span>\n<div class="${contentClass}">${items}\n${indentStr}</div><span class="json-bracket">}</span>`;
+                }
+                
+                return String(obj);
+            }
+
+            formatString(str) {
+                // Check if the string contains HTML tags
+                const htmlRegex = /<[^>]+>/;
+                const isHTML = htmlRegex.test(str);
+                
+                if (isHTML) {
+                    // Create a container for HTML content
+                    return `
+                        <span class="json-string-container">
+                            <span class="json-string-quote">"</span>
+                            <div class="json-html-content">${str}</div>
+                            <span class="json-string-quote">"</span>
+                            <button class="toggle-html-btn" onclick="this.parentElement.classList.toggle('show-raw')">
+                                <span class="toggle-text">Show Raw</span>
+                            </button>
+                            <div class="json-raw-content">${this.escapeHtml(str)}</div>
+                        </span>
+                    `;
+                } else {
+                    // Regular string formatting
+                    return `<span class="json-string">"${this.escapeHtml(str)}"</span>`;
+                }
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            renderAsDocumentation(data) {
+                let html = '';
+                
+                // Handle different JSON structures
+                if (Array.isArray(data)) {
+                    // For array-based files (like search-index), show a summary
+                    html += `<div class="doc-content">`;
+                    html += `<p>This file contains ${data.length} entries.</p>`;
+                    if (data.length > 0 && data[0].title) {
+                        html += `<h3>Contents:</h3><ul>`;
+                        data.slice(0, 10).forEach(item => {
+                            if (item.title) {
+                                html += `<li>${item.title} ${item.method ? `(${item.method})` : ''}</li>`;
+                            }
+                        });
+                        if (data.length > 10) {
+                            html += `<li><em>... and ${data.length - 10} more entries</em></li>`;
+                        }
+                        html += `</ul>`;
+                    }
+                    html += `</div>`;
+                } else if (data.content_md && data.content_md.trim()) {
+                    // Regular documentation files with markdown content
+                    html += `<div class="doc-content">${this.markdownToHtml(data.content_md)}</div>`;
+                } else if (data.endpoints && Array.isArray(data.endpoints)) {
+                    // API resource files with endpoints
+                    html += `<div class="doc-content">`;
+                    html += `<p>This resource provides ${data.endpoints.length} endpoint${data.endpoints.length !== 1 ? 's' : ''}:</p>`;
+                    
+                    data.endpoints.forEach(endpoint => {
+                        html += `<div class="endpoint-section">`;
+                        html += `<h3><span class="method-badge method-${endpoint.method.toLowerCase()}">${endpoint.method}</span> ${endpoint.name}</h3>`;
+                        html += `<div class="endpoint-path"><code>${endpoint.path}</code></div>`;
+                        
+                        if (endpoint.summary) {
+                            html += `<p>${endpoint.summary}</p>`;
+                        }
+                        
+                        if (endpoint.description) {
+                            html += `<div class="endpoint-description">${this.markdownToHtml(endpoint.description)}</div>`;
+                        }
+                        
+                        // Query Parameters
+                        if (endpoint.query_params && endpoint.query_params.length > 0) {
+                            html += `<h4>Query Parameters</h4>`;
+                            html += `<table class="params-table">`;
+                            html += `<thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>`;
+                            html += `<tbody>`;
+                            endpoint.query_params.forEach(param => {
+                                html += `<tr>`;
+                                html += `<td><code>${param.name}</code></td>`;
+                                html += `<td><code>${param.type}</code></td>`;
+                                html += `<td>${param.required ? '<span class="required">Required</span>' : '<span class="optional">Optional</span>'}</td>`;
+                                html += `<td>${param.summary || param.description || ''}</td>`;
+                                html += `</tr>`;
+                            });
+                            html += `</tbody></table>`;
+                        }
+                        
+                        // Request Body Parameters
+                        if (endpoint.request_body_params && endpoint.request_body_params.length > 0) {
+                            html += `<h4>Request Body Parameters</h4>`;
+                            html += `<table class="params-table">`;
+                            html += `<thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>`;
+                            html += `<tbody>`;
+                            endpoint.request_body_params.forEach(param => {
+                                html += `<tr>`;
+                                html += `<td><code>${param.name}</code></td>`;
+                                html += `<td><code>${param.type}</code></td>`;
+                                html += `<td>${param.required ? '<span class="required">Required</span>' : '<span class="optional">Optional</span>'}</td>`;
+                                html += `<td>${param.summary || param.description || ''}</td>`;
+                                html += `</tr>`;
+                            });
+                            html += `</tbody></table>`;
+                        }
+                        
+                        // Examples
+                        if (endpoint.examples && endpoint.examples.length > 0) {
+                            html += `<h4>Examples</h4>`;
+                            endpoint.examples.forEach(example => {
+                                if (example.name) {
+                                    html += `<h5>${example.name}</h5>`;
+                                }
+                                if (example.request) {
+                                    html += `<div class="example-request">`;
+                                    html += `<strong>Request:</strong>`;
+                                    html += `<pre><code>${this.escapeHtml(example.request)}</code></pre>`;
+                                    html += `</div>`;
+                                }
+                                if (example.response) {
+                                    html += `<div class="example-response">`;
+                                    html += `<strong>Response:</strong>`;
+                                    html += `<pre><code>${this.escapeHtml(example.response)}</code></pre>`;
+                                    html += `</div>`;
+                                }
+                            });
+                        }
+                        
+                        html += `</div>`; // end endpoint-section
+                    });
+                    
+                    html += `</div>`;
+                } else {
+                    html += `<div class="doc-content"><p><em>No content available for this section.</em></p></div>`;
+                }
+                
+                // Show examples if available
+                if (data.examples && data.examples.length > 0) {
+                    html += `<div class="doc-examples">`;
+                    html += `<h3>Examples</h3>`;
+                    data.examples.forEach((example, index) => {
+                        html += `<div class="example-item">`;
+                        if (example.title) {
+                            html += `<h4>${example.title}</h4>`;
+                        }
+                        if (example.description) {
+                            html += `<p>${example.description}</p>`;
+                        }
+                        if (example.code) {
+                            html += `<pre><code>${this.escapeHtml(example.code)}</code></pre>`;
+                        }
+                        html += `</div>`;
+                    });
+                    html += `</div>`;
+                }
+                
+                // Add a collapsible raw JSON section for debugging
+                html += `
+                    <div class="raw-json-section">
+                        <button class="toggle-raw-btn" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'; this.textContent = this.textContent.includes('Show') ? 'Hide Raw JSON' : 'Show Raw JSON';">Show Raw JSON</button>
+                        <div class="raw-json-content" style="display: none;">
+                            <pre><code>${this.escapeHtml(JSON.stringify(data, null, 2))}</code></pre>
+                        </div>
+                    </div>
+                `;
+                
+                return html;
+            }
+            
+            markdownToHtml(markdown) {
+                // Simple markdown to HTML conversion
+                return markdown
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                    .replace(/`([^`]+)`/g, '<code>$1</code>')
+                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/^(.+)$/gm, function(match) {
+                        if (match.startsWith('<h') || match.startsWith('</p>') || match.startsWith('<p>') || match === '') {
+                            return match;
+                        }
+                        return match;
+                    })
+                    .replace(/^([^<].*)$/gm, '<p>$1</p>')
+                    .replace(/<p><\/p>/g, '')
+                    .replace(/<p>(<h[1-6]>.*<\/h[1-6]>)<\/p>/g, '$1')
+                    .replace(/<p>(<pre>.*<\/pre>)<\/p>/g, '$1');
+            }
+
+            showError(message) {
+                document.getElementById('jsonContent').innerHTML = `<div class="error">${message}</div>`;
+                document.getElementById('jsonContent').style.display = 'block';
+                document.getElementById('emptyState').style.display = 'none';
+            }
+        }
+
+        // Initialize the viewer
+        new JSONViewer();
+    </script>
+</body>
+</html>

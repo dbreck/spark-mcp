@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "projects",
+  "resource_title": "Projects",
+  "name": "Get Project",
+  "method": "GET",
+  "path": "/v2/projects/:id",
+  "url": "https://api.spark.re/v2/projects/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A project is an indivdual development, usually a single building that is being sold or leased.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A project is an indivdual development, usually a single building that is being sold or leased.",
+      "runs": [
+        {
+          "text": "A project is an indivdual development, usually a single building that is being sold or leased."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "cd09d3de-4317-41e6-8570-608fe2941977"
+}

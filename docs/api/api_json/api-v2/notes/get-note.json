@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "notes",
+  "resource_title": "Notes",
+  "name": "Get Note",
+  "method": "GET",
+  "path": "/v2/notes/:id",
+  "url": "https://api.spark.re/v2/notes/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A note is used by team members to log specific details about an contact, interaction, inventory, contract, or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A note is used by team members to log specific details about an contact, interaction, inventory, contract, or reservation.",
+      "runs": [
+        {
+          "text": "A note is used by team members to log specific details about an contact, interaction, inventory, contract, or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "8be31c3a-142a-4012-a4f5-3ce9b5b0916e"
+}

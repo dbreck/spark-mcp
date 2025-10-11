@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "parking",
+  "resource_title": "Parking",
+  "name": "Get Parking Stall",
+  "method": "GET",
+  "path": "/v2/parking-stalls/:id",
+  "url": "https://api.spark.re/v2/parking-stalls/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A parking stall is an add-on for a unit (inventory) on a contract or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A parking stall is an add-on for a unit (inventory) on a contract or reservation.",
+      "runs": [
+        {
+          "text": "A parking stall is an add-on for a unit (inventory) on a contract or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "613537c2-4eb7-4320-b861-f7c10e9dab25"
+}

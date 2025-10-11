@@ -1,0 +1,36 @@
+{
+  "type": "endpoint",
+  "resource": "interactions",
+  "resource_title": "Interactions",
+  "name": "Create Interaction",
+  "method": "POST",
+  "path": "/v2/interactions",
+  "url": "https://api.spark.re/v2/interactions",
+  "query_params": [],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": "{\n    // Contact who was interacted with\n    // See \"Contacts\" for IDs\n    \"contact_id\": ,\n\n    // Type of event taking place\n    // See \"Interaction Types\" for IDs\n    \"interaction_type_id\": ,\n    \n    // Description of the interaction or any followup notes\n    \"note\": \"Fully-configurable 6th generation software\",\n\n    // Team member who did the interaction\n    // See \"Team Members\" for IDs\n    \"team_member_id\": ,\n\n    // Datetime the interaction took place\n    \"timestamp\": \"2025-08-31T17:26:51.358Z\"\n}",
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An interaction is logged by team members when engaging with a contact via email, phone, in person or virtually.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An interaction is logged by team members when engaging with a contact via email, phone, in person or virtually.",
+      "runs": [
+        {
+          "text": "An interaction is logged by team members when engaging with a contact via email, phone, in person or virtually."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "7a433549-e7d4-445e-9214-4223fce438f5"
+}

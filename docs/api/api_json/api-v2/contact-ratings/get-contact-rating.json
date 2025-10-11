@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "contact-ratings",
+  "resource_title": "Contact Ratings",
+  "name": "Get Contact Rating",
+  "method": "GET",
+  "path": "/v2/contact-ratings/:id",
+  "url": "https://api.spark.re/v2/contact-ratings/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contact rating is assigned to a contact to classify their potential to purchase a unit.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contact rating is assigned to a contact to classify their potential to purchase a unit.",
+      "runs": [
+        {
+          "text": "A contact rating is assigned to a contact to classify their potential to purchase a unit."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "295cc8f6-3ac5-425b-a088-ee5c5fdc4cf0"
+}

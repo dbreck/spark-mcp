@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "external-commissions",
+  "resource_title": "External Commissions",
+  "name": "Get External Commission",
+  "method": "GET",
+  "path": "/v2/external-commissions/:id",
+  "url": "https://api.spark.re/v2/external-commissions/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An external commission is a monitary amount paid to an real estate agent after a successful real estate sale.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An external commission is a monitary amount paid to an real estate agent after a successful real estate sale.",
+      "runs": [
+        {
+          "text": "An external commission is a monitary amount paid to an real estate agent after a successful real estate sale."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "2db231d1-7284-46ea-bfa3-fc2794bf1ff6"
+}

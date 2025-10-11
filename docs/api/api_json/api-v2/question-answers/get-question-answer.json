@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "question-answers",
+  "resource_title": "Question Answers",
+  "name": "Get Question Answer",
+  "method": "GET",
+  "path": "/v2/question-answers/:id",
+  "url": "https://api.spark.re/v2/question-answers/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A question that has been answered by a contact, usually through a registration form, a visit to a sales center, or via some other form of communication. They are often used to track information about what a contact is interested in purchasing, their budget, or when they'd like to purchase.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A question that has been answered by a contact, usually through a registration form, a visit to a sales center, or via some other form of communication. They are often used to track information about what a contact is interested in purchasing, their budget, or when they'd like to purchase.",
+      "runs": [
+        {
+          "text": "A question that has been answered by a contact, usually through a registration form, a visit to a sales center, or via some other form of communication. They are often used to track information about what a contact is interested in purchasing, their budget, or when they'd like to purchase."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "1882fc4a-d9be-42ef-ae35-1912857a6284"
+}

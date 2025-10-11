@@ -1,0 +1,134 @@
+{
+  "type": "endpoint",
+  "resource": "internal-commissions",
+  "resource_title": "Internal Commisions",
+  "name": "Get Internal Commissions",
+  "method": "GET",
+  "path": "/v2/internal-commissions",
+  "url": "https://api.spark.re/v2/internal-commissions",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "contact_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "created_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "contract_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "description_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "due_date_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "name_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "team_member_id_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "updated_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An internal commission is a monitary amount paid to a team member after a successful real estate sale.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An internal commission is a monitary amount paid to a team member after a successful real estate sale.",
+      "runs": [
+        {
+          "text": "An internal commission is a monitary amount paid to a team member after a successful real estate sale."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "849f7372-a5de-45fb-86bb-8eb9b13b16d2"
+}

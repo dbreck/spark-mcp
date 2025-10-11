@@ -1,0 +1,106 @@
+{
+  "type": "endpoint",
+  "resource": "deposits",
+  "resource_title": "Deposits",
+  "name": "Get Deposits",
+  "method": "GET",
+  "path": "/v2/deposits",
+  "url": "https://api.spark.re/v2/deposits",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "contract_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "due_date_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_value_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "type_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A deposit is a monitary amount that is provided at the time of contract acceptance as consideration for the sale. All amounts get put toward the final amount owed at closing.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A deposit is a monitary amount that is provided at the time of contract acceptance as consideration for the sale. All amounts get put toward the final amount owed at closing.",
+      "runs": [
+        {
+          "text": "A deposit is a monitary amount that is provided at the time of contract acceptance as consideration for the sale. All amounts get put toward the final amount owed at closing."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "2a0b268f-9c5d-45c4-9fda-05b468ae6aed"
+}

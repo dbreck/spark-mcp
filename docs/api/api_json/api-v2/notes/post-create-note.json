@@ -1,0 +1,36 @@
+{
+  "type": "endpoint",
+  "resource": "notes",
+  "resource_title": "Notes",
+  "name": "Create Note",
+  "method": "POST",
+  "path": "/v2/notes",
+  "url": "https://api.spark.re/v2/notes",
+  "query_params": [],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": "{\n    // Contact to store the note on\n    // See \"Contacts\" for IDs\n    // \"contact_id\": ,\n\n    // Contract to store the note on\n    // See \"Contracts\" for IDs\n    // \"contract_id\": ,\n\n    // Interaction to store the note on\n    // See \"Interactions\" for IDs\n    // \"interaction_id\": ,\n\n    // Inventory to store the note on\n    // See \"Inventory\" for IDs\n    // \"inventory_id\": ,\n\n    // Team member who is creating the note\n    // See \"Team Members\" for IDs\n    // \"team_member_id\": ,\n\n    // Text or copy for the note\n    // \"text\": \"Self-enabling disintermediate installation\"\n}",
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A note is used by team members to log specific details about an contact, interaction, inventory, contract, or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A note is used by team members to log specific details about an contact, interaction, inventory, contract, or reservation.",
+      "runs": [
+        {
+          "text": "A note is used by team members to log specific details about an contact, interaction, inventory, contract, or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "9f328f8b-b973-4e5b-a918-df0d7877f3b9"
+}

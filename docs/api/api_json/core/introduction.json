@@ -1,0 +1,49 @@
+{
+  "title": "Introduction",
+  "slug": "introduction",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Spark powers new development real estate",
+      "slug": "spark-powers-new-development-real-estate",
+      "id": "spark-powers-new-development-real-estate",
+      "block_id": "h2-spark-powers-new-development-real-estate",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Spark (https://www.spark.re) is a sales, marketing, and customer relationship management platform designed specifically for the new development/pre-sale real estate industry.",
+      "runs": [
+        {
+          "text": "Spark",
+          "link": "https://www.spark.re"
+        },
+        {
+          "text": "is a sales, marketing, and customer relationship management platform designed specifically for the new development/pre-sale real estate industry."
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "paragraph",
+      "text": "Follow along with this documentation to learn about how to use the API and contact us at support@spark.re (https://mailto:support@spark.re) if you have any further questions.",
+      "runs": [
+        {
+          "text": "Follow along with this documentation to learn about how to use the API and contact us at"
+        },
+        {
+          "text": "support@spark.re",
+          "link": "https://mailto:support@spark.re"
+        },
+        {
+          "text": "if you have any further questions."
+        }
+      ],
+      "block_id": "paragraph-3",
+      "order": 3
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "type": "endpoint",
+  "resource": "registration-sources",
+  "resource_title": "Registration Sources",
+  "name": "Get Registration Source",
+  "method": "GET",
+  "path": "/v2/registration-sources/:id",
+  "url": "https://api.spark.re/v2/registration-sources/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "",
+  "notes_blocks": [],
+  "postman_id": "0bad375e-318c-4880-8cfd-04d3cafb084a"
+}

@@ -1,0 +1,36 @@
+{
+  "type": "endpoint",
+  "resource": "events",
+  "resource_title": "Events",
+  "name": "Create Event",
+  "method": "POST",
+  "path": "/v2/events",
+  "url": "https://api.spark.re/v2/events",
+  "query_params": [],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": "{\n    // Contacts to associate with this event\n    // See \"Contacts\" for IDs\n    \"contact_ids\": [\n        \n    ],\n\n    // Additional description of the event\n    \"description\": \"Extended 6th generation hierarchy\",\n\n    // Datetime the event ends\n    \"ends_at\": \"2025-08-31T17:26:51.357Z\",\n    \n    // Type of event taking place\n    // See \"Interaction Types\" for IDs\n    \"interaction_type_id\": ,\n\n    // Inventory to associate with this event\n    // See \"Inventory\" for IDs\n    \"inventory_ids\": [\n        \n    ],\n\n    // Number of minutes before the event to sent a reminder email\n    // to the team member associated\n    \"reminder\": 162,\n\n    // If this event should be shared with other team members\n    // Requires team_member_ids field if true\n    \"shared\": false,\n\n    // Datetime the event starts\n    \"starts_at\": \"2025-08-31T17:26:51.357Z\",\n\n    // Team member who owns the event\n    // See \"Team Members\" for IDs\n    \"team_member_id\": ,\n\n    // Title for the event\n    \"title\": \"Polarised 24 hour framework\",\n\n    // Team members to share this event with\n    // See \"Team Members\" for IDs\n    \"team_member_ids\": [\n        \n    ]\n}",
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An event in a team members calendar.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An event in a team members calendar.",
+      "runs": [
+        {
+          "text": "An event in a team members calendar."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "cdbb892b-1c1d-46b5-b8ea-4409d5544a79"
+}

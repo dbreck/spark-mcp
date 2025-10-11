@@ -1,0 +1,130 @@
+{
+  "type": "form",
+  "title": "Registration Form",
+  "method": "POST",
+  "path": "/company-permalink/project-permalink/register/form-permalink",
+  "url": "https://spark.re//company-permalink/project-permalink/register/form-permalink?agent=true&contact[comments]=Future-proofed tangible analyzer&contact[email]=Marina_Dickens@example.com&contact[first_name]=Maci&contact[last_name]=Rodriguez&source=web-enabled",
+  "query_params": [
+    {
+      "name": "agent",
+      "example": "false",
+      "required": true
+    },
+    {
+      "name": "answers[][answers]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "contact[address_line_1]",
+      "example": "73263 Thiel Club",
+      "required": false
+    },
+    {
+      "name": "contact[address_line_2]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "contact[brokerage_name]",
+      "example": "Grady - Hoppe",
+      "required": false
+    },
+    {
+      "name": "contact[city]",
+      "example": "New Royce",
+      "required": false
+    },
+    {
+      "name": "contact[comments]",
+      "example": "Universal neutral capacity",
+      "required": true
+    },
+    {
+      "name": "contact[contact_preference]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "contact[country_id]",
+      "example": "824",
+      "required": false
+    },
+    {
+      "name": "contact[email]",
+      "example": "Franz88@example.org",
+      "required": true
+    },
+    {
+      "name": "contact[employer]",
+      "example": "Applications",
+      "required": false
+    },
+    {
+      "name": "contact[first_name]",
+      "example": "Kari",
+      "required": true
+    },
+    {
+      "name": "contact[job_title]",
+      "example": "Lead Assurance Analyst",
+      "required": false
+    },
+    {
+      "name": "contact[last_name]",
+      "example": "Larson",
+      "required": true
+    },
+    {
+      "name": "contact[phone]",
+      "example": "384-261-2861",
+      "required": false
+    },
+    {
+      "name": "contact[postcode]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "contact[province]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "dynamic_attributes[][dynamic_attribute_id]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "dynamic_attributes[][key]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "dynamic_attributes[][value]",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "g-recaptcha-response",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "redirect_error",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "redirect_success",
+      "example": "",
+      "required": false
+    },
+    {
+      "name": "source",
+      "example": "dot-com",
+      "required": true
+    }
+  ],
+  "description": "A POST request to create a new contact. Only an email is required to create a new contact although we recommended you include as much information as you have available."
+}

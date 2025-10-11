@@ -1,0 +1,92 @@
+{
+  "type": "endpoint",
+  "resource": "contact-ratings",
+  "resource_title": "Contact Ratings",
+  "name": "Get Contact Ratings",
+  "method": "GET",
+  "path": "/v2/contact-ratings",
+  "url": "https://api.spark.re/v2/contact-ratings",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "created_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "value_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": "Hot"
+    },
+    {
+      "name": "updated_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contact rating is assigned to a contact to classify their potential to purchase a unit.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contact rating is assigned to a contact to classify their potential to purchase a unit.",
+      "runs": [
+        {
+          "text": "A contact rating is assigned to a contact to classify their potential to purchase a unit."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "e0f5cae0-b224-45c9-825b-3d2255de3d69"
+}

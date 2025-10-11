@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "contacts",
+  "resource_title": "Contacts",
+  "name": "Get Contact",
+  "method": "GET",
+  "path": "/v2/contacts/:id",
+  "url": "https://api.spark.re/v2/contacts/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contact is a registrant, lead, or person that is interested in, or has purchased a unit with the project or company. These contacts can self register, be imported, or transfered from another project.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contact is a registrant, lead, or person that is interested in, or has purchased a unit with the project or company. These contacts can self register, be imported, or transfered from another project.",
+      "runs": [
+        {
+          "text": "A contact is a registrant, lead, or person that is interested in, or has purchased a unit with the project or company. These contacts can self register, be imported, or transfered from another project."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "71b3c40f-ca3c-46e0-a179-9ddfde751aa8"
+}

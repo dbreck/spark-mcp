@@ -1,0 +1,155 @@
+{
+  "type": "endpoint",
+  "resource": "storage",
+  "resource_title": "Storage",
+  "name": "Get Storage Units",
+  "method": "GET",
+  "path": "/v2/storage-units",
+  "url": "https://api.spark.re/v2/storage-units",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "building_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "created_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "floor_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "inventory_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "location_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "name_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "number_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_value_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "type_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "type_size_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "updated_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A storage unit is an add on for a unit (inventory) on a contract or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A storage unit is an add on for a unit (inventory) on a contract or reservation.",
+      "runs": [
+        {
+          "text": "A storage unit is an add on for a unit (inventory) on a contract or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "0c6e57b3-a68d-4f18-a031-a75afdcc9944"
+}

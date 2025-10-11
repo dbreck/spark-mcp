@@ -1,0 +1,55 @@
+{
+  "type": "endpoint",
+  "resource": "standardized-fields",
+  "resource_title": "Standardized Fields",
+  "name": "Get Standardized Field",
+  "method": "GET",
+  "path": "/v2/standardized-fields/:id",
+  "url": "https://api.spark.re/v2/standardized-fields/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An standardized field is a non Spark default, custom field that can be used with contacts, contracts, inventory, reservations, and team members.\n\nAn additional field on a object (like contacts) can either be associated with a standardized field, or can be a one off value.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An standardized field is a non Spark default, custom field that can be used with contacts, contracts, inventory, reservations, and team members.",
+      "runs": [
+        {
+          "text": "An standardized field is a non Spark default, custom field that can be used with contacts, contracts, inventory, reservations, and team members."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "An additional field on a object (like contacts) can either be associated with a standardized field, or can be a one off value.",
+      "runs": [
+        {
+          "text": "An additional field on a object (like contacts) can either be associated with a standardized field, or can be a one off value."
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    }
+  ],
+  "postman_id": "eec97a87-3cf7-4219-b069-c7134d0a03f0"
+}

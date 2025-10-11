@@ -1,0 +1,183 @@
+{
+  "type": "endpoint",
+  "resource": "inventory",
+  "resource_title": "Inventory",
+  "name": "Get Inventory",
+  "method": "GET",
+  "path": "/v2/inventory",
+  "url": "https://api.spark.re/v2/inventory",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "area_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "bathrooms_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "bedrooms_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "building_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "created_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "floor_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "floorplan_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "kind_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "lease_#",
+      "type": "boolean",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "offer_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "price_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "sold_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_value_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "unit_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "updated_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "Inventory are units available in a building or project.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "Inventory are units available in a building or project.",
+      "runs": [
+        {
+          "text": "Inventory are units available in a building or project."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "ae33814a-bfa0-4c29-9a32-b62e703cdc42"
+}

@@ -1,0 +1,137 @@
+{
+  "title": "Ordering",
+  "slug": "ordering",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "There are query parameters on each endpoint that supports ordering (aka sorting). Most fields returned in the the results can be used for ordering. A direction can also be provided to change which results are returned first.",
+      "runs": [
+        {
+          "text": "There are query parameters on each endpoint that supports ordering (aka sorting). Most fields returned in the the results can be used for ordering. A direction can also be provided to change which results are returned first."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "text": "The fields that are supported must be a direct child of a parent object that is returned, ordering based on nested fields is not currently supported. If you want to sort based on nested fields, make a request with the required order to those endpoints.",
+      "runs": [
+        {
+          "text": "Note"
+        },
+        {
+          "text": ": The fields that are supported must be a direct child of a parent object that is returned, ordering based on nested fields is not currently supported. If you want to sort based on nested fields, make a request with the required order to those endpoints."
+        }
+      ],
+      "block_id": "callout-2",
+      "order": 2
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Field Selection",
+      "slug": "field-selection",
+      "id": "field-selection",
+      "block_id": "h3-field-selection",
+      "order": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "The results are ordered by `created_at` by default. This in combination with a default decending direction means that the newest result will always be returned first, and the oldest last.",
+      "runs": [
+        {
+          "text": "The results are ordered by"
+        },
+        {
+          "text": "created_at",
+          "code": true
+        },
+        {
+          "text": "by default. This in combination with a default decending direction means that the newest result will always be returned first, and the oldest last."
+        }
+      ],
+      "block_id": "paragraph-4",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "To order the results, submit the `order` query parameter along with the name of a field as the value.",
+      "runs": [
+        {
+          "text": "To order the results, submit the"
+        },
+        {
+          "text": "order",
+          "code": true
+        },
+        {
+          "text": "query parameter along with the name of a field as the value."
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "code",
+      "text": "// Order by id\ncurl --location 'https://api.spark.re/v2/contacts?order=id'\n// Order by last_name\ncurl --location 'https://api.spark.re/v2/contacts?order=last_name'\n// Order by registered_at\ncurl --location 'https://api.spark.re/v2/contacts?order=registered_at'",
+      "lang": "shell",
+      "block_id": "code-6",
+      "order": 6
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Direction",
+      "slug": "direction",
+      "id": "direction",
+      "block_id": "h3-direction",
+      "order": 7
+    },
+    {
+      "type": "paragraph",
+      "text": "The results are ordered in decending (desc) order by default, which returns Z-A 9-0. You can also sort ascending (asc) which returns A-Z 0-9.",
+      "runs": [
+        {
+          "text": "The results are ordered in decending (desc) order by default, which returns Z-A 9-0. You can also sort ascending (asc) which returns A-Z 0-9."
+        }
+      ],
+      "block_id": "paragraph-8",
+      "order": 8
+    },
+    {
+      "type": "paragraph",
+      "text": "To change the direction, submit the `order` , and `direction` query parameters.",
+      "runs": [
+        {
+          "text": "To change the direction, submit the"
+        },
+        {
+          "text": "order",
+          "code": true
+        },
+        {
+          "text": ", and"
+        },
+        {
+          "text": "direction",
+          "code": true
+        },
+        {
+          "text": "query parameters."
+        }
+      ],
+      "block_id": "paragraph-9",
+      "order": 9
+    },
+    {
+      "type": "code",
+      "text": "// Order by id ascending\ncurl --location 'https://api.spark.re/v2/contacts?order=id&direction=asc'\n// Order by last_name ascending\ncurl --location 'https://api.spark.re/v2/contacts?order=last_name&direction=asc'\n// Order by registered_at descending\ncurl --location 'https://api.spark.re/v2/contacts?order=registered_at&direction=desc'",
+      "lang": "shell",
+      "block_id": "code-10",
+      "order": 10
+    }
+  ]
+}

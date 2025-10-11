@@ -1,0 +1,149 @@
+{
+  "title": "Authorization",
+  "slug": "authorization",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Warning !@#&",
+      "slug": "warning-",
+      "id": "warning-",
+      "block_id": "h2-warning-",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "The Spark API should only ever be accessed from the server side (aka backend) component of an application. Accessing the API from the client side (such as using javascript that is executed in a web browser) will expose the API key, and could allow access to all of the company and project data within Spark. You are responsible for connecting to the API, and storing credentials in a secure way.",
+      "runs": [
+        {
+          "text": "The Spark API should only ever be accessed from the server side (aka backend) component of an application. Accessing the API from the client side (such as using javascript that is executed in a web browser) will expose the API key, and could allow access to all of the company and project data within Spark. You are responsible for connecting to the API, and storing credentials in a secure way."
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Authorization Header",
+      "slug": "authorization-header",
+      "id": "authorization-header",
+      "block_id": "h2-authorization-header",
+      "order": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "Spark uses an HTTP token authorization for API access. An API key can be generated from a Spark account under Settings -> API. If you don't have access to Spark, ask your company contact to provide you with an account, or an API key with the correct permissions (see below).",
+      "runs": [
+        {
+          "text": "Spark uses an HTTP token authorization for API access. An API key can be generated from a Spark account under Settings -> API. If you don't have access to Spark, ask your company contact to provide you with an account, or an API key with the correct permissions (see below)."
+        }
+      ],
+      "block_id": "paragraph-4",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "An authorization header should be submitted with all requests, in the following format:",
+      "runs": [
+        {
+          "text": "An authorization header should be submitted with all requests, in the following format:"
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "paragraph",
+      "text": "`Authorization: Token token=\"•••••••\"`",
+      "runs": [
+        {
+          "text": "Authorization: Token token=\"•••••••\"",
+          "code": true
+        }
+      ],
+      "block_id": "paragraph-6",
+      "order": 6
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "text": "The authorization header has been set on the top level of the Spark.re collection in Postman, and is inherited on all API requests automatically. There is no need to manually add it to each Postman request.",
+      "runs": [
+        {
+          "text": "Note"
+        },
+        {
+          "text": ": The authorization header has been set on the top level of the Spark.re collection in Postman, and is inherited on all API requests automatically. There is no need to manually add it to each Postman request."
+        }
+      ],
+      "block_id": "callout-7",
+      "order": 7
+    },
+    {
+      "type": "paragraph",
+      "text": "Example:",
+      "runs": [
+        {
+          "text": "Example:"
+        }
+      ],
+      "block_id": "paragraph-8",
+      "order": 8
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts' \\\n     --header 'Authorization: Token token=\"•••••••\"'",
+      "lang": "shell",
+      "block_id": "code-9",
+      "order": 9
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "API Key Permissions",
+      "slug": "api-key-permissions",
+      "id": "api-key-permissions",
+      "block_id": "h2-api-key-permissions",
+      "order": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "When API keys are generated in Spark, they should be given the minimum required permissions to return only the data required for the integration.",
+      "runs": [
+        {
+          "text": "When API keys are generated in Spark, they should be given the minimum required permissions to return only the data required for the integration."
+        }
+      ],
+      "block_id": "paragraph-11",
+      "order": 11
+    },
+    {
+      "type": "paragraph",
+      "text": "If an integration only requires access to read or write Contacts, please don't give access to read Inventory, Contracts, Reservations, Projects, etc.",
+      "runs": [
+        {
+          "text": "If an integration only requires access to read or write Contacts, please don't give access to read Inventory, Contracts, Reservations, Projects, etc."
+        }
+      ],
+      "block_id": "paragraph-12",
+      "order": 12
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "text": "You don't need read permissions on data if you are only writing data. When a Create or Update request is sent, just as long as it was successful, you will get the result back in the response.",
+      "runs": [
+        {
+          "text": "Note"
+        },
+        {
+          "text": ": You don't need read permissions on data if you are only writing data. When a Create or Update request is sent, just as long as it was successful, you will get the result back in the response."
+        }
+      ],
+      "block_id": "callout-13",
+      "order": 13
+    }
+  ]
+}

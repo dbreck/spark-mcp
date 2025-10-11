@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "contract-statuses",
+  "resource_title": "Contract Statuses",
+  "name": "Get Contract Status",
+  "method": "GET",
+  "path": "/v2/contract-statuses/:id",
+  "url": "https://api.spark.re/v2/contract-statuses/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "any",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contract status represents the current status of a contract",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contract status represents the current status of a contract",
+      "runs": [
+        {
+          "text": "A contract status represents the current status of a contract"
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "25722153-2b0e-4b25-abfd-f7c95344001d"
+}

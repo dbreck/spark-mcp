@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "lenders",
+  "resource_title": "Lenders",
+  "name": "Get Lender",
+  "method": "GET",
+  "path": "/v2/lenders/:id",
+  "url": "https://api.spark.re/v2/lenders/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A lender is an organization or person who lends money.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A lender is an organization or person who lends money.",
+      "runs": [
+        {
+          "text": "A lender is an organization or person who lends money."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "5f7a4e25-0587-49cf-9dce-e8a39d147254"
+}

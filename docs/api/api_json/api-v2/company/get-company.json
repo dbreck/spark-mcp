@@ -1,0 +1,36 @@
+{
+  "type": "endpoint",
+  "resource": "company",
+  "resource_title": "Company",
+  "name": "Get Company",
+  "method": "GET",
+  "path": "/v2/company",
+  "url": "https://api.spark.re/v2/company",
+  "query_params": [],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A company is the real estate developer, marketing firm, or brokerage who is using our platform.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A company is the real estate developer, marketing firm, or brokerage who is using our platform.",
+      "runs": [
+        {
+          "text": "A company is the real estate developer, marketing firm, or brokerage who is using our platform."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "9c2a50d4-4940-4d7e-adb4-1b583351ef6b"
+}

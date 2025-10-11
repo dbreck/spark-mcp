@@ -1,0 +1,141 @@
+{
+  "type": "endpoint",
+  "resource": "contracts",
+  "resource_title": "Contracts",
+  "name": "Get Contracts",
+  "method": "GET",
+  "path": "/v2/contracts",
+  "url": "https://api.spark.re/v2/contracts",
+  "query_params": [
+    {
+      "name": "page",
+      "type": "integer",
+      "required": false,
+      "summary": "Which page of results to return",
+      "example": "1"
+    },
+    {
+      "name": "per_page",
+      "type": "integer",
+      "required": false,
+      "summary": "The number of results returned per page. Defaults to 25",
+      "example": "25"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "required": false,
+      "summary": "Provide a field name to change the sort order. Defaults to created_at",
+      "example": "created_at"
+    },
+    {
+      "name": "direction",
+      "type": "string",
+      "required": false,
+      "summary": "Accepts asc or desc. Defaults to desc",
+      "example": "desc"
+    },
+    {
+      "name": "agent_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "created_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "inventory_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "primary_purchaser_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "primary_purchaser_email_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "secondary_purchaser_id_#",
+      "type": "integer",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "secondary_purchaser_email_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_id_#",
+      "type": "intger",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "status_value_#",
+      "type": "string",
+      "required": false,
+      "summary": "",
+      "example": ""
+    },
+    {
+      "name": "updated_at_#",
+      "type": "datetime",
+      "required": false,
+      "summary": "",
+      "example": ""
+    }
+  ],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": true,
+    "style": "page",
+    "params": [
+      "page",
+      "per_page"
+    ]
+  },
+  "ordering": [
+    "order",
+    "direction"
+  ],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contract is a legally binding document that outlines terms, conditions, exchanges and payment between two parties in a real estate transaction.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contract is a legally binding document that outlines terms, conditions, exchanges and payment between two parties in a real estate transaction.",
+      "runs": [
+        {
+          "text": "A contract is a legally binding document that outlines terms, conditions, exchanges and payment between two parties in a real estate transaction."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "e5c3197e-ce88-4a08-877b-78c052d0d338"
+}

@@ -1,0 +1,18 @@
+{
+  "title": "Status Codes",
+  "slug": "status-codes",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Responses from the Spark API will return one of the following status codes:",
+      "runs": [
+        {
+          "text": "Responses from the Spark API will return one of the following status codes:"
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ]
+}

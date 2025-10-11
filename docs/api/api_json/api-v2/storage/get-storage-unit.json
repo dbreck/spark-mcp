@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "storage",
+  "resource_title": "Storage",
+  "name": "Get Storage Unit",
+  "method": "GET",
+  "path": "/v2/storage-unit/:id",
+  "url": "https://api.spark.re/v2/storage-unit/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A storage unit is an add on for a unit (inventory) on a contract or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A storage unit is an add on for a unit (inventory) on a contract or reservation.",
+      "runs": [
+        {
+          "text": "A storage unit is an add on for a unit (inventory) on a contract or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "60252888-152d-4b46-9135-4b2cba9e780e"
+}

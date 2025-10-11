@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "followup-schedules",
+  "resource_title": "Followup Schedules",
+  "name": "Get Followup Schedule",
+  "method": "GET",
+  "path": "/v2/followup-schedules/:id",
+  "url": "https://api.spark.re/v2/followup-schedules/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A followup schedule is used to assign follow up tasks to a given contact.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A followup schedule is used to assign follow up tasks to a given contact.",
+      "runs": [
+        {
+          "text": "A followup schedule is used to assign follow up tasks to a given contact."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "c513461b-c61b-4acd-8fa1-84f8b5b33fea"
+}

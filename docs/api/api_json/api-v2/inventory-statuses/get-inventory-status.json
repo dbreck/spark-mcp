@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "inventory-statuses",
+  "resource_title": "Inventory Statuses",
+  "name": "Get Inventory Status",
+  "method": "GET",
+  "path": "/v2/inventory-statuses/:id",
+  "url": "https://api.spark.re/v2/inventory-statuses/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An inventory status that is assigned to a unit (inventory) either manually, or automatically when a reservation/contract is written.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An inventory status that is assigned to a unit (inventory) either manually, or automatically when a reservation/contract is written.",
+      "runs": [
+        {
+          "text": "An inventory status that is assigned to a unit (inventory) either manually, or automatically when a reservation/contract is written."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "14e0afd6-8236-45da-9ca7-51436b1a1b52"
+}

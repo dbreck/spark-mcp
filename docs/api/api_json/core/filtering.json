@@ -1,0 +1,401 @@
+{
+  "title": "Filtering",
+  "slug": "filtering",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "When looking at the endpoints listed in this documentation, there will be query parameters listed (ending with `_#` ) when that endpoint supports filters. The listed query parameters are meant to outline commonly used filters, however almost every field returned in the results can be used for filtering.",
+      "runs": [
+        {
+          "text": "When looking at the endpoints listed in this documentation, there will be query parameters listed (ending with"
+        },
+        {
+          "text": "_#",
+          "code": true
+        },
+        {
+          "text": ") when that endpoint supports filters. The listed query parameters are meant to outline commonly used filters, however almost every field returned in the results can be used for filtering."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "When using the listed query params, you simply need to replace the `_#` with one of the modifiers below. A few examples of this may be:",
+      "runs": [
+        {
+          "text": "When using the listed query params, you simply need to replace the"
+        },
+        {
+          "text": "_#",
+          "code": true
+        },
+        {
+          "text": "with one of the modifiers below. A few examples of this may be:"
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "list",
+      "style": "unordered",
+      "start": null,
+      "items": [
+        {
+          "text": "`rating_value_#` → `rating_value_eq`",
+          "runs": [
+            {
+              "text": "rating_value_#",
+              "code": true
+            },
+            {
+              "text": "→"
+            },
+            {
+              "text": "rating_value_eq",
+              "code": true
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "`city_#` → `city_start`",
+          "runs": [
+            {
+              "text": "city_#",
+              "code": true
+            },
+            {
+              "text": "→"
+            },
+            {
+              "text": "city_start",
+              "code": true
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "`first_name_#` → `first_name_cont`",
+          "runs": [
+            {
+              "text": "first_name_#",
+              "code": true
+            },
+            {
+              "text": "→"
+            },
+            {
+              "text": "first_name_cont",
+              "code": true
+            }
+          ],
+          "children": null
+        }
+      ],
+      "block_id": "list-3",
+      "order": 3
+    },
+    {
+      "type": "paragraph",
+      "text": "To use non listed filter, provide a field name (aka key) along with an modifier from the list below. The modifiers should added to the end of the field name.",
+      "runs": [
+        {
+          "text": "To use non listed filter, provide a field name (aka key) along with an modifier from the list below. The modifiers should added to the end of the field name."
+        }
+      ],
+      "block_id": "paragraph-4",
+      "order": 4
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, looking at a partial contact object from the `GET /v2/contacts` (Get Contacts) request has `email` , `first_name` , and `created_at` fields.",
+      "runs": [
+        {
+          "text": "For example, looking at a partial contact object from the"
+        },
+        {
+          "text": "GET /v2/contacts",
+          "code": true
+        },
+        {
+          "text": "(Get Contacts) request has"
+        },
+        {
+          "text": "email",
+          "code": true
+        },
+        {
+          "text": ","
+        },
+        {
+          "text": "first_name",
+          "code": true
+        },
+        {
+          "text": ", and"
+        },
+        {
+          "text": "created_at",
+          "code": true
+        },
+        {
+          "text": "fields."
+        }
+      ],
+      "block_id": "paragraph-5",
+      "order": 5
+    },
+    {
+      "type": "code",
+      "text": "{\n    ~~~\n    \"created_at\": \"2023-02-24T03:32:37Z\",\n    \"date_of_birth\": null,\n    \"email\": \"john@sparkreexample.com\",\n    \"fax\": null,\n    \"first_name\": \"John\",\n    ~~~\n}",
+      "lang": "javascript",
+      "block_id": "code-6",
+      "order": 6
+    },
+    {
+      "type": "paragraph",
+      "text": "To filter the results you can pass the parameters in the following formats to achieve the result noted in the comments below:",
+      "runs": [
+        {
+          "text": "To filter the results you can pass the parameters in the following formats to achieve the result noted in the comments below:"
+        }
+      ],
+      "block_id": "paragraph-7",
+      "order": 7
+    },
+    {
+      "type": "code",
+      "text": "// Email must exactly match john@sparkreexample.com\ncurl --location 'https://api.spark.re/v2/contacts?email_eq=john@sparkreexample.com'\n// First name must contain John\ncurl --location 'https://api.spark.re/v2/contacts?first_name_cont=John'\n// Contact was created on or after March 2nd\ncurl --location 'https://api.spark.re/v2/contacts?created_at_gteq=2023-03-02'",
+      "lang": "shell",
+      "block_id": "code-8",
+      "order": 8
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Matching Multiple Values",
+      "slug": "matching-multiple-values",
+      "id": "matching-multiple-values",
+      "block_id": "h2-matching-multiple-values",
+      "order": 9
+    },
+    {
+      "type": "paragraph",
+      "text": "There may be cases where you want results that match multiple values for the same query parameter. All of the modifiers above (except `_null` and `_not_null` ) can be used with an additional `_any` modifier.",
+      "runs": [
+        {
+          "text": "There may be cases where you want results that match multiple values for the same query parameter. All of the modifiers above (except"
+        },
+        {
+          "text": "_null",
+          "code": true
+        },
+        {
+          "text": "and"
+        },
+        {
+          "text": "_not_null",
+          "code": true
+        },
+        {
+          "text": ") can be used with an additional"
+        },
+        {
+          "text": "_any",
+          "code": true
+        },
+        {
+          "text": "modifier."
+        }
+      ],
+      "block_id": "paragraph-10",
+      "order": 10
+    },
+    {
+      "type": "paragraph",
+      "text": "When using the any modifier, you will need to submit the query parameter name (aka key) as an array, by appending `[]` to the end. A few examples of this may be:",
+      "runs": [
+        {
+          "text": "When using the any modifier, you will need to submit the query parameter name (aka key) as an array, by appending"
+        },
+        {
+          "text": "[]",
+          "code": true
+        },
+        {
+          "text": "to the end. A few examples of this may be:"
+        }
+      ],
+      "block_id": "paragraph-11",
+      "order": 11
+    },
+    {
+      "type": "list",
+      "style": "unordered",
+      "start": null,
+      "items": [
+        {
+          "text": "`rating_value_eq` → `rating_value_eq_any[]`",
+          "runs": [
+            {
+              "text": "rating_value_eq",
+              "code": true
+            },
+            {
+              "text": "→"
+            },
+            {
+              "text": "rating_value_eq_any[]",
+              "code": true
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "`city_eq` → `city_eq_any[]`",
+          "runs": [
+            {
+              "text": "city_eq",
+              "code": true
+            },
+            {
+              "text": "→"
+            },
+            {
+              "text": "city_eq_any[]",
+              "code": true
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "`first_name_cont` → `first_name_cont_any[]`",
+          "runs": [
+            {
+              "text": "first_name_cont",
+              "code": true
+            },
+            {
+              "text": "→"
+            },
+            {
+              "text": "first_name_cont_any[]",
+              "code": true
+            }
+          ],
+          "children": null
+        }
+      ],
+      "block_id": "list-12",
+      "order": 12
+    },
+    {
+      "type": "paragraph",
+      "text": "Those filters in action:",
+      "runs": [
+        {
+          "text": "Those filters in action:"
+        }
+      ],
+      "block_id": "paragraph-13",
+      "order": 13
+    },
+    {
+      "type": "code",
+      "text": "// Has Hot or Warm rating\ncurl --location 'https://api.spark.re/v2/contacts?rating_value_eq_any[]=Hot&rating_value_eq_any[]=Warm'\n// Lives within New York or New Jersey\ncurl --location 'https://api.spark.re/v2/contacts?city_eq_any[]=New+York&city_eq_any[]=New+Jersey'\n// Has first name that contains John, Jane, or Jim\ncurl --location 'https://api.spark.re/v2/contacts?first_name_cont_any[]=John&first_name_cont_any[]=Jane&first_name_cont_any[]=Jim'",
+      "lang": "shell",
+      "block_id": "code-14",
+      "order": 14
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Combining Multiple Parameters",
+      "slug": "combining-multiple-parameters",
+      "id": "combining-multiple-parameters",
+      "block_id": "h2-combining-multiple-parameters",
+      "order": 15
+    },
+    {
+      "type": "paragraph",
+      "text": "Multiple query parameters can be separated by `&` , which then filters down the results further. Each query parameter is appened with `AND` , meaning the results will only match all of the filters requested.",
+      "runs": [
+        {
+          "text": "Multiple query parameters can be separated by"
+        },
+        {
+          "text": "&",
+          "code": true
+        },
+        {
+          "text": ", which then filters down the results further. Each query parameter is appened with"
+        },
+        {
+          "text": "AND",
+          "code": true
+        },
+        {
+          "text": ", meaning the results will only match all of the filters requested."
+        }
+      ],
+      "block_id": "paragraph-16",
+      "order": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "For example, you can filter the results to only return Contacts with a `first_name` of John in the `city` of New York:",
+      "runs": [
+        {
+          "text": "For example, you can filter the results to only return Contacts with a"
+        },
+        {
+          "text": "first_name",
+          "code": true
+        },
+        {
+          "text": "of John in the"
+        },
+        {
+          "text": "city",
+          "code": true
+        },
+        {
+          "text": "of New York:"
+        }
+      ],
+      "block_id": "paragraph-17",
+      "order": 17
+    },
+    {
+      "type": "code",
+      "text": "curl --location 'https://api.spark.re/v2/contacts?first_name_cont=John&city_eq=New+York'",
+      "lang": "shell",
+      "block_id": "code-18",
+      "order": 18
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Additional Examples",
+      "slug": "additional-examples",
+      "id": "additional-examples",
+      "block_id": "h2-additional-examples",
+      "order": 19
+    },
+    {
+      "type": "paragraph",
+      "text": "See the example requests included in this documentation for additional examples of how to use the filters.",
+      "runs": [
+        {
+          "text": "See the example requests included in this documentation for additional examples of how to use the filters."
+        }
+      ],
+      "block_id": "paragraph-20",
+      "order": 20
+    }
+  ]
+}

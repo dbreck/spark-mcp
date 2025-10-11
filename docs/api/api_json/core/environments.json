@@ -1,0 +1,104 @@
+{
+  "title": "Environments",
+  "slug": "environments",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Spark has a few publically accessible environments, while most of the time you'll want to work with the production environment, if you've been given access to to our demo environment (which is usually the case if you're testing/building a new integration), you'll need to prefix all of the domains with \"demo\".",
+      "runs": [
+        {
+          "text": "Spark has a few publically accessible environments, while most of the time you'll want to work with the production environment, if you've been given access to to our demo environment (which is usually the case if you're testing/building a new integration), you'll need to prefix all of the domains with \"demo\"."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "For example:",
+      "runs": [
+        {
+          "text": "For example:"
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    },
+    {
+      "type": "list",
+      "style": "unordered",
+      "start": null,
+      "items": [
+        {
+          "text": "`https://spark.re` becomes `https://demo.spark.re`",
+          "runs": [
+            {
+              "text": "https://spark.re",
+              "code": true
+            },
+            {
+              "text": "becomes"
+            },
+            {
+              "text": "https://demo.spark.re",
+              "code": true
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "`https://app.spark.re` becomes `https://demo-app.spark.re`",
+          "runs": [
+            {
+              "text": "https://app.spark.re",
+              "code": true
+            },
+            {
+              "text": "becomes"
+            },
+            {
+              "text": "https://demo-app.spark.re",
+              "code": true
+            }
+          ],
+          "children": null
+        },
+        {
+          "text": "`https://api.spark.re` becomes `https://demo-api.spark.re`",
+          "runs": [
+            {
+              "text": "https://api.spark.re",
+              "code": true
+            },
+            {
+              "text": "becomes"
+            },
+            {
+              "text": "https://demo-api.spark.re",
+              "code": true
+            }
+          ],
+          "children": null
+        }
+      ],
+      "block_id": "list-3",
+      "order": 3
+    },
+    {
+      "type": "callout",
+      "variant": "note",
+      "text": "If you're using the Postman collection & environment, you only need to update the initial and current values, not the variable name. This allows you to easily switch between the demo and production environment.",
+      "runs": [
+        {
+          "text": ""
+        },
+        {
+          "text": "If you're using the Postman collection & environment, you only need to update the initial and current values, not the variable name. This allows you to easily switch between the demo and production environment."
+        }
+      ],
+      "block_id": "callout-4",
+      "order": 4
+    }
+  ]
+}

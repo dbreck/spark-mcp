@@ -1,0 +1,36 @@
+{
+  "title": "Getting Started",
+  "slug": "getting-started",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "The Spark API is a RESTful interface, providing programmatic access to much of the data in the platform. It provides predictable URLs for accessing resources, and uses built-in HTTP features to receive requests and return responses.",
+      "runs": [
+        {
+          "text": "The Spark API is a RESTful interface, providing programmatic access to much of the data in the platform. It provides predictable URLs for accessing resources, and uses built-in HTTP features to receive requests and return responses."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Keep in mind that this documention assumes some basic understanding of how to work with APIs, including the requirement to percent/url encode (https://en.wikipedia.org/wiki/Percent-encoding) all URLs before submitting requests.",
+      "runs": [
+        {
+          "text": "Keep in mind that this documention assumes some basic understanding of how to work with APIs, including the requirement to"
+        },
+        {
+          "text": "percent/url encode",
+          "link": "https://en.wikipedia.org/wiki/Percent-encoding"
+        },
+        {
+          "text": "all URLs before submitting requests."
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    }
+  ]
+}

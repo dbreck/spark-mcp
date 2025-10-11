@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "deposits",
+  "resource_title": "Deposits",
+  "name": "Get Deposit",
+  "method": "GET",
+  "path": "/v2/deposits/:id",
+  "url": "https://api.spark.re/v2/deposits/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A deposit is a monitary amount that is provided at the time of contract acceptance as consideration for the sale. All amounts get put toward the final amount owed at closing.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A deposit is a monitary amount that is provided at the time of contract acceptance as consideration for the sale. All amounts get put toward the final amount owed at closing.",
+      "runs": [
+        {
+          "text": "A deposit is a monitary amount that is provided at the time of contract acceptance as consideration for the sale. All amounts get put toward the final amount owed at closing."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "7b64bfb1-592d-49b5-9013-75f30c6727ea"
+}

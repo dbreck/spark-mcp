@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "inventory",
+  "resource_title": "Inventory",
+  "name": "Get Inventory Unit",
+  "method": "GET",
+  "path": "/v2/inventory/:id",
+  "url": "https://api.spark.re/v2/inventory/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "Inventory are units available in a building or project.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "Inventory are units available in a building or project.",
+      "runs": [
+        {
+          "text": "Inventory are units available in a building or project."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "145965ed-0778-47cd-84a0-5acd0b9d3c1a"
+}

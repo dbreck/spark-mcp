@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "team-members",
+  "resource_title": "Team Members",
+  "name": "Get Team Member",
+  "method": "GET",
+  "path": "/v2/team-members/:id",
+  "url": "https://api.spark.re/v2/team-members/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A user, or team member as they are referred to in Spark has access to the application, and takes actions on the various resources.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A user, or team member as they are referred to in Spark has access to the application, and takes actions on the various resources.",
+      "runs": [
+        {
+          "text": "A user, or team member as they are referred to in Spark has access to the application, and takes actions on the various resources."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "c5256179-140a-4c28-bc7e-85e28c90cfa5"
+}

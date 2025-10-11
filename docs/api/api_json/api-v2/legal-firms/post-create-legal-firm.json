@@ -1,0 +1,24 @@
+{
+  "type": "endpoint",
+  "resource": "legal-firms",
+  "resource_title": "Legal Firms",
+  "name": "Create Legal Firm",
+  "method": "POST",
+  "path": "/v2/legal-firms",
+  "url": "https://api.spark.re/v2/legal-firms",
+  "query_params": [],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": "{\n    // Street address where this legal firm is located\n    \"address_line_1\": \"834 Nolan Unions\",\n\n    // Additional street address where this legal firm is located\n    // Usually suite, unit, or flat number\n    \"address_line_2\": \"Unit 101\",\n\n    // The city where the legal firm is located\n    \"city\": \"Tustin\",\n\n    // Country where this legal firm is located\n    // Mutually exclusive with country_name\n    \"country_iso\": \"{{iso-of-random-countries-result}}\",\n    \n    // Country where this legal firm is located\n    // Mutually exclusive with country_iso\n    \"country_name\": \"Canada\",\n\n    // Email address for the legal firm\n    // Usually for general inquires or support\n    \"email\": \"Heather95@example.org\",\n\n    // Fax number for the legal firm\n    \"fax\": \"209-236-0991\",\n\n    // Name of the legal firm\n    \"name\": \"Hettinger and Sons\",\n\n    // Phone number of the legal firm\n    // Email or phone are required\n    \"phone\": \"992-769-7556\",\n\n    // Postal/zip code of where the legal firm is located\n    \"postcode\": \"915\",\n\n    // Province/state where the legal firm is located\n    \"province\": \"withdrawal\",\n\n    // Website for the legal firm\n    // Should include http:// or https://\n    \"website\": \"https://www.example.com\"\n}\n",
+  "request_body_json": null,
+  "responses": [],
+  "notes": "",
+  "notes_blocks": [],
+  "postman_id": "f0d4e409-29be-496c-aa49-13b31b909339"
+}

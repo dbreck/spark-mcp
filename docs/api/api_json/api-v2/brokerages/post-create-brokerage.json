@@ -1,0 +1,36 @@
+{
+  "type": "endpoint",
+  "resource": "brokerages",
+  "resource_title": "Brokerages",
+  "name": "Create Brokerage",
+  "method": "POST",
+  "path": "/v2/brokerages",
+  "url": "https://api.spark.re/v2/brokerages",
+  "query_params": [],
+  "path_params": [],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": "{\n    // Additional fields accept custom values that do not\n    // exist in Spark by default. They can either be a one\n    // off on a single contact, or predefined as a standardized \n    // field that unlocks additional functionality. Spark accepts \n    // these using either of the formats below.\n    \"additional_fields\": [\n        {\n            // Will find and assign a standardized field id if the name field\n            // matches. Will create a one off additional field otherwise\n            \"name\": \"Communications\",\n\n            // A value for this additional/standardized field\n            \"value\": \"transmitter\"\n        },\n        {\n            // See \"Standardized Fields\" for IDs\n            \"standardized_field_id\": \"\",\n\n            // Value for this additional field\n            \"value\": \"Baby\"\n        }\n    ],\n\n    // Street address where this brokerage is located\n    \"address_line_1\": \"196 Lemke Courts\",\n\n    // Additional street address where this brokerage is located\n    // Usually suite, unit, or flat number\n    \"address_line_2\": \"Unit 101\",\n\n    // The city where the brokerage is located\n    \"city\": \"Rohnert Park\",\n\n    // Country where this brokerage is located\n    // Mutually exclusive with country_name\n    \"country_iso\": \"{{iso-of-random-countries-result}}\",\n    \n    // Country where this brokerage is located\n    // Mutually exclusive with country_iso\n    \"country_name\": \"Canada\",\n\n    // Custom Fields accept a varity of values that is determined by the\n    // input_type. The following are the value formats accepted by the \n    // Custom Field of a given input_type:\n    // {\n    //      checkbox: array,\n    //      currency: float,\n    //      date: date,\n    //      date_time: datetime,\n    //      dropdown: array,\n    //      long_text: string,\n    //      measurement: float,\n    //      number: float,\n    //      percentage: float,\n    //      radio: string,\n    //      short_text: string\n    //   }\n    \"custom_field_values\": [\n        {\n            // See \"Custom Fields for IDs\"\n            \"custom_field_id\": \"{{id-of-first-custom-fields-result\",\n\n            // The value for this Custom Field\n            \"value\": \"Bolivar\"\n        }\n    ],\n\n    // Email address for the brokerage\n    // Usually for general inquires or support\n    \"email\": \"Henriette_Wilkinson85@example.org\",\n\n    // Fax number for the brokerage\n    \"fax\": \"637-675-9448\",\n\n    // Licence number of the brokerage\n    \"licence\": \"455\",\n\n    // Managing broker (agent) of the brokerage\n    // See \"Contacts\" for IDs\n    \"manager_id\": \"\",\n\n    // Name of the brokerage\n    \"name\": \"Christiansen LLC\",\n\n    // Phone number of the brokerage\n    // Email or phone are required\n    \"phone\": \"761-783-8096\",\n\n    // Postal/zip code of where the brokerage is located\n    \"postcode\": \"323\",\n\n    // Province/state where the brokerage is located\n    \"province\": \"Account\",\n\n    // Website for the brokerage\n    // Should include http:// or https://\n    \"website\": \"https://www.example.com\"\n}\n",
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A brokerage is a company that a real estate agent works for, and is the recipient of external commissions on a contract or reservation.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A brokerage is a company that a real estate agent works for, and is the recipient of external commissions on a contract or reservation.",
+      "runs": [
+        {
+          "text": "A brokerage is a company that a real estate agent works for, and is the recipient of external commissions on a contract or reservation."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "26a28e53-a5cd-4f6e-bc57-7350e38dbb19"
+}

@@ -1,0 +1,29 @@
+{
+  "title": "GET",
+  "slug": "get",
+  "type": "core",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "Querying for a list of records returns a limited dataset for all records. This includes model attributes and foreign keys. These records can be further refined with the use of filters.",
+      "runs": [
+        {
+          "text": "Querying for a list of records returns a limited dataset for all records. This includes model attributes and foreign keys. These records can be further refined with the use of filters."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    },
+    {
+      "type": "paragraph",
+      "text": "Querying for a single record returns the most complete dataset. All model attributes and associations are returned with their own attributes and foreign keys.",
+      "runs": [
+        {
+          "text": "Querying for a single record returns the most complete dataset. All model attributes and associations are returned with their own attributes and foreign keys."
+        }
+      ],
+      "block_id": "paragraph-2",
+      "order": 2
+    }
+  ]
+}

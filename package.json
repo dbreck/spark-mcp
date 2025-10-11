@@ -1,0 +1,36 @@
+{
+  "name": "spark-mcp-server",
+  "version": "1.5.1",
+  "type": "module",
+  "description": "MCP server for Spark.re CRM - enables Claude to query, create, update contacts and analyze sales data with AI-powered insights for real estate teams. Features automatic ID enrichment, pagination and human-readable reports.",
+  "main": "dist/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "spark-re",
+    "crm",
+    "real-estate",
+    "sales-automation",
+    "analytics",
+    "claude",
+    "ai"
+  ],
+  "author": "Clear PH",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.1",
+    "typescript": "^5.9.3"
+  }
+}

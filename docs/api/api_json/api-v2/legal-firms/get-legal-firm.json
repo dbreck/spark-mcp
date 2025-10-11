@@ -1,0 +1,32 @@
+{
+  "type": "endpoint",
+  "resource": "legal-firms",
+  "resource_title": "Legal Firms",
+  "name": "Get Legal Firm",
+  "method": "GET",
+  "path": "/v2/legal-firms/:id",
+  "url": "https://api.spark.re/v2/legal-firms/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "",
+  "notes_blocks": [],
+  "postman_id": "adbbdb74-1b7c-4dce-9e87-4b80b564a903"
+}

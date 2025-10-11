@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "floorplans",
+  "resource_title": "Floorplans",
+  "name": "Get Floorplan",
+  "method": "GET",
+  "path": "/v2/floorplans/:id",
+  "url": "https://api.spark.re/v2/floorplans/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A floorplan is a common floor layout associated with multiple units (inventory).",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A floorplan is a common floor layout associated with multiple units (inventory).",
+      "runs": [
+        {
+          "text": "A floorplan is a common floor layout associated with multiple units (inventory)."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "843fcf78-08b0-4c60-a9e1-df90a214f38f"
+}

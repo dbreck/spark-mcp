@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "contact-groups",
+  "resource_title": "Contact Groups",
+  "name": "Get Contact Group",
+  "method": "GET",
+  "path": "/v2/contact-groups/:id",
+  "url": "https://api.spark.re/v2/contact-groups/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "A contact group is a group of contacts.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "A contact group is a group of contacts.",
+      "runs": [
+        {
+          "text": "A contact group is a group of contacts."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "b630d4e8-10b6-4142-9186-7b112a6edcc2"
+}

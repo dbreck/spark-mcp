@@ -1,0 +1,44 @@
+{
+  "type": "endpoint",
+  "resource": "interaction-types",
+  "resource_title": "Interaction Types",
+  "name": "Get Interaction Type",
+  "method": "GET",
+  "path": "/v2/interaction-types/:id",
+  "url": "https://api.spark.re/v2/interaction-types/:id",
+  "query_params": [],
+  "path_params": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "summary": "Required. Enter a single ID",
+      "example": ""
+    }
+  ],
+  "headers": [],
+  "pagination": {
+    "supported": false,
+    "style": null,
+    "params": []
+  },
+  "ordering": [],
+  "request_body_raw": null,
+  "request_body_json": null,
+  "responses": [],
+  "notes": "An interaction type is used to classify interactions.",
+  "notes_blocks": [
+    {
+      "type": "paragraph",
+      "text": "An interaction type is used to classify interactions.",
+      "runs": [
+        {
+          "text": "An interaction type is used to classify interactions."
+        }
+      ],
+      "block_id": "paragraph-1",
+      "order": 1
+    }
+  ],
+  "postman_id": "9314a510-ea70-4dfb-a2a7-d3e5cefe3d45"
+}
