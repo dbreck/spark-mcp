@@ -5,7 +5,6 @@ Model Context Protocol server that connects Claude Desktop to Spark.re's real es
 ## Project Overview
 
 **Purpose:** Enable Claude to directly query, create, update, and analyze Spark.re CRM data through conversational interface
-**Location:** `/Users/dannybreckenridge/spark-mcp`
 **Development:** Built in Claude Code, tested in Claude Desktop
 **Status:** Production-ready with full read/write/analytics capabilities
 
