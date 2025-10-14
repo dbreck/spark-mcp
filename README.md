@@ -217,6 +217,69 @@ Refer to documentation for:
 - Authentication headers
 - Rate limits
 
+### Important API Behavior: List vs Individual Endpoints
+
+**Key Discovery:** The Spark API returns different data depth depending on the endpoint used:
+
+#### List Endpoints (e.g., `GET /contacts`)
+Returns "light" contact data optimized for performance:
+- **Includes:** Basic fields like `id`, `first_name`, `last_name`, `email`, `phone`, `created_at`
+- **Excludes:** Nested data like `ratings`, `projects`, `notes`, `team_members`, custom fields
+- **Use case:** Searching, filtering, getting contact IDs for further queries
+- **Performance:** Fast, can handle pagination efficiently
+
+#### Individual Endpoints (e.g., `GET /contacts/{id}`)
+Returns full contact data with all nested relationships:
+- **Includes:** All 49+ fields including `ratings` array, `projects`, `notes`, `team_members`
+- **Format:** Ratings come as array: `[{id, value, color, position}]`
+- **Use case:** Getting complete contact details, accessing ratings and relationships
+- **Performance:** Slower, should be used selectively
+
+#### Practical Implications
+
+**Problem:** If you need ratings for multiple contacts, the list endpoint won't include them.
+
+**Solution 1 - Individual Fetches (Used in `get_sales_funnel`):**
+```typescript
+// Fetch contacts individually in batches
+const batchSize = 10; // Concurrent requests
+for (let i = 0; i < contactIds.length; i += batchSize) {
+  const batch = contactIds.slice(i, i + batchSize);
+  const batchPromises = batch.map(id =>
+    sparkApi.get(`/contacts/${id}`)
+  );
+  const results = await Promise.all(batchPromises);
+}
+```
+- ✅ Gets full data including ratings
+- ⚠️ Slower for large datasets (e.g., 176 contacts ≈ 18 seconds with 10 concurrent)
+- **Use when:** You need ratings, notes, or other nested data
+
+**Solution 2 - Interaction-Based Workaround:**
+```typescript
+// Get engaged contacts via interactions
+const interactions = await sparkApi.get('/interactions?project_id=2855');
+const contactIds = [...new Set(interactions.map(i => i.contact_id))];
+// Then fetch individual contacts for full data
+```
+- ✅ Filters to engaged contacts only (those with activity)
+- ✅ More relevant dataset for analytics
+- **Use when:** Analyzing active pipeline, sales funnel
+
+**Accessing Ratings:**
+```typescript
+// ❌ Wrong - ratings is not a direct property
+const rating = contact.rating;
+
+// ✅ Correct - ratings is an array
+const rating = contact.ratings?.[0]?.value;
+```
+
+This behavior is documented in our code at:
+- [src/index.ts:668-670](src/index.ts#L668-L670) - `formatContactsResponse()`
+- [src/index.ts:723-726](src/index.ts#L723-L726) - `handleGetContactDetails()`
+- [src/index.ts:2046-2070](src/index.ts#L2046-L2070) - `handleGetSalesFunnel()` batch fetching
+
 ## Implementation Guidelines
 
 ### Authentication Pattern
