@@ -1,6 +1,6 @@
 {
   "name": "spark-mcp-server",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "type": "module",
   "description": "MCP server for Spark.re CRM - enables Claude to query, create, update contacts and analyze sales data with AI-powered insights for real estate teams. Features automatic ID enrichment, pagination and human-readable reports.",
   "main": "dist/index.js",

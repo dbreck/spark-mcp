@@ -475,6 +475,28 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
         },
         required: ["project_id"]
       }
+    },
+    {
+      name: "get_sales_funnel",
+      description: "Get sales pipeline funnel with rating distribution, stage progression, and conversion metrics. Returns real-time data showing how contacts move through the sales process.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          project_id: {
+            type: "number",
+            description: "Required: Project ID to analyze"
+          },
+          days_ago: {
+            type: "number",
+            description: "Optional: Only include contacts active in last N days (default: all contacts with interactions)"
+          },
+          include_inactive: {
+            type: "boolean",
+            description: "Optional: Include contacts with no interactions (default: false, only engaged contacts)"
+          }
+        },
+        required: ["project_id"]
+      }
     }
   ]
 }));
@@ -528,6 +550,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case "list_ratings":
         return await handleListRatings(args);
+
+      case "get_sales_funnel":
+        return await handleGetSalesFunnel(args);
 
       default:
         throw new Error(`Unknown tool: ${name}`);
@@ -664,7 +689,11 @@ function formatContactsResponse(response: any, pagination?: any) {
     output += `   - Email: ${contact.email || 'N/A'}\n`;
     if (contact.phone) output += `   - Phone: ${contact.phone}\n`;
     if (contact.project_name) output += `   - Project: ${contact.project_name}\n`;
-    if (contact.rating) output += `   - Rating: ${contact.rating}\n`;
+    // Ratings come as an array - get the first rating's value
+    const ratingDisplay = (contact.ratings && contact.ratings.length > 0)
+      ? contact.ratings[0].value
+      : undefined;
+    if (ratingDisplay) output += `   - Rating: ${ratingDisplay}\n`;
     if (contact.last_interaction_date) output += `   - Last Contact: ${formatDate(contact.last_interaction_date)}\n`;
     output += `   - ID: ${contact.id}\n\n`;
   });
@@ -705,7 +734,11 @@ async function handleGetContactDetails(args: any) {
   if (contact.phone) output += `- Phone: ${contact.phone}\n`;
   if (contact.address) output += `- Address: ${contact.address}\n`;
   if (contact.city) output += `- City: ${contact.city}\n`;
-  output += `- Rating: ${contact.rating || 'Not rated'}\n`;
+  // Ratings come as an array - get the first rating's value
+  const ratingDisplay = (contact.ratings && contact.ratings.length > 0)
+    ? contact.ratings[0].value
+    : 'Not rated';
+  output += `- Rating: ${ratingDisplay}\n`;
   output += `- Source: ${contact.marketing_source || 'Unknown'}\n`;
   output += `- Created: ${formatDate(contact.created_at)}\n\n`;
 
@@ -1956,6 +1989,231 @@ function formatDate(dateString: string): string {
   if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
 
   return date.toLocaleDateString();
+}
+
+/**
+ * Tool handler: Get sales funnel (Analytics)
+ * Uses interaction-based workaround to get contact ratings
+ */
+async function handleGetSalesFunnel(args: any) {
+  const { project_id, days_ago, include_inactive = false } = args;
+
+  if (!project_id) {
+    throw new Error("project_id is required");
+  }
+
+  try {
+    // Step 1: Get total contact count from project metadata
+    const projects: any = await sparkApi.get('/projects');
+    let projectsList: any[] = Array.isArray(projects) ? projects :
+                             (projects?.data ? projects.data : []);
+    const project = projectsList.find((p: any) => p.id === project_id);
+    const totalContacts = project?.contacts_count || 0;
+
+    // Step 2: Paginate through ALL interactions to get contact IDs
+    const contactIds = new Set<number>();
+    const params: any = {
+      per_page: 100,
+      project_id_eq: project_id
+    };
+
+    if (days_ago) {
+      const cutoffDate = new Date();
+      cutoffDate.setDate(cutoffDate.getDate() - days_ago);
+      params.created_at_gteq = cutoffDate.toISOString();
+    }
+
+    let page = 1;
+    let hasMore = true;
+
+    while (hasMore && page <= 10) { // Cap at 10 pages (1000 interactions) for performance
+      const queryString = sparkApi.buildQueryString({ ...params, page });
+      const response: any = await sparkApi.getWithPagination(`/interactions${queryString}`);
+
+      let interactions: any[] = Array.isArray(response.data) ? response.data :
+                               (response.data?.data ? response.data.data : []);
+
+      interactions.forEach((i: any) => {
+        if (i.contact_id) contactIds.add(i.contact_id);
+      });
+
+      hasMore = response.pagination?.hasMore || false;
+      page++;
+    }
+
+    // Step 3: Fetch contacts individually (list endpoint doesn't return ratings)
+    // The /contacts endpoint returns "light" data without ratings, projects, notes, etc.
+    // Must use /contacts/{id} endpoint to get full contact data with ratings
+    const contactIdArray = Array.from(contactIds);
+    const contacts: any[] = [];
+
+    // Fetch contacts in batches of 10 concurrent requests to avoid overwhelming API
+    const batchSize = 10;
+    for (let i = 0; i < contactIdArray.length; i += batchSize) {
+      const batch = contactIdArray.slice(i, i + batchSize);
+
+      // Fetch all contacts in this batch concurrently
+      const batchPromises = batch.map(id =>
+        sparkApi.get(`/contacts/${id}`).catch(err => {
+          console.error(`Failed to fetch contact ${id}:`, err.message);
+          return null; // Return null for failed fetches
+        })
+      );
+
+      const batchResults = await Promise.all(batchPromises);
+
+      // Add successful fetches to contacts array
+      batchResults.forEach((contact: any) => {
+        if (contact && contact.id) {
+          contacts.push(contact);
+        }
+      });
+    }
+
+    // Step 4: Aggregate by rating
+    const ratingCounts = new Map<string, {
+      rating_id: number;
+      count: number;
+      color: string;
+      contacts: number[];
+    }>();
+
+    // Collect debug info
+    let contactsWithRatings = 0;
+    let contactsWithoutRatings = 0;
+    const sampleContactsWithRatings: any[] = [];
+    const sampleContactsWithoutRatings: any[] = [];
+
+    contacts.forEach((contact: any) => {
+      const rating = contact.ratings?.[0];
+
+      if (!rating) {
+        contactsWithoutRatings++;
+        if (sampleContactsWithoutRatings.length < 3) {
+          sampleContactsWithoutRatings.push({
+            id: contact.id,
+            name: `${contact.first_name} ${contact.last_name}`,
+            ratings: contact.ratings
+          });
+        }
+      } else {
+        contactsWithRatings++;
+        if (sampleContactsWithRatings.length < 3) {
+          sampleContactsWithRatings.push({
+            id: contact.id,
+            name: `${contact.first_name} ${contact.last_name}`,
+            rating: rating
+          });
+        }
+      }
+
+      if (rating) {
+        const key = rating.value;
+        if (!ratingCounts.has(key)) {
+          ratingCounts.set(key, {
+            rating_id: rating.id,
+            count: 0,
+            color: rating.color || '#CCCCCC',
+            contacts: []
+          });
+        }
+        const stats = ratingCounts.get(key)!;
+        stats.count++;
+        stats.contacts.push(contact.id);
+      }
+    });
+
+    // Step 5: Format output
+    let output = `# Sales Funnel Analysis\n\n`;
+    output += `**Project:** ${project?.name || project_id}\n`;
+    output += `**Total Contacts in System:** ${totalContacts}\n`;
+    output += `**Engaged Contacts (with interactions):** ${contacts.length}\n`;
+    if (days_ago) {
+      output += `**Time Period:** Last ${days_ago} days\n`;
+    }
+    output += `\n`;
+
+    // Add visible debug info
+    output += `## Debug Information\n\n`;
+    output += `- **Contacts with ratings:** ${contactsWithRatings}\n`;
+    output += `- **Contacts without ratings:** ${contactsWithoutRatings}\n`;
+    output += `- **Rating categories found:** ${ratingCounts.size}\n\n`;
+
+    if (sampleContactsWithRatings.length > 0) {
+      output += `**Sample contacts WITH ratings:**\n`;
+      sampleContactsWithRatings.forEach(c => {
+        output += `- ${c.name} (${c.id}): ${c.rating.value} [Color: ${c.rating.color}]\n`;
+      });
+      output += `\n`;
+    }
+
+    if (sampleContactsWithoutRatings.length > 0) {
+      output += `**Sample contacts WITHOUT ratings:**\n`;
+      sampleContactsWithoutRatings.forEach(c => {
+        output += `- ${c.name} (${c.id}): ratings field = ${JSON.stringify(c.ratings)}\n`;
+      });
+      output += `\n`;
+    }
+
+    output += `\n`;
+
+    // Sort ratings by count (descending)
+    const sortedRatings = Array.from(ratingCounts.entries())
+      .sort((a, b) => b[1].count - a[1].count);
+
+    // Handle empty ratings
+    if (sortedRatings.length === 0) {
+      output += `**No ratings found.** The ${contacts.length} engaged contacts either:\n`;
+      output += `- Have no ratings assigned in Spark\n`;
+      output += `- Are not being returned with rating data by the API\n\n`;
+    } else {
+      output += `## Rating Distribution\n\n`;
+      sortedRatings.forEach(([rating, stats], idx) => {
+        const percentage = ((stats.count / contacts.length) * 100).toFixed(1);
+        output += `${idx + 1}. **${rating}** (ID: ${stats.rating_id})\n`;
+        output += `   - Count: ${stats.count} contacts (${percentage}%)\n`;
+        output += `   - Color: ${stats.color}\n`;
+        output += `\n`;
+      });
+    }
+
+    // Calculate conversion rates
+    output += `## Key Metrics\n\n`;
+    output += `- **Engagement Rate:** ${((contacts.length / totalContacts) * 100).toFixed(1)}% `;
+    output += `(${contacts.length} of ${totalContacts} contacts have interactions)\n`;
+
+    // Find specific stages for conversion analysis
+    const newLeads = ratingCounts.get('New')?.count || 0;
+    const hot = ratingCounts.get('Hot')?.count || 0;
+    const warm = ratingCounts.get('Warm')?.count || 0;
+    const reservations = ratingCounts.get('Reservation Holder')?.count || 0;
+    const contracts = ratingCounts.get('Contract Holder')?.count || 0;
+
+    if (newLeads > 0 && hot > 0) {
+      output += `- **New → Hot Conversion:** ${((hot / newLeads) * 100).toFixed(1)}%\n`;
+    }
+    if (hot > 0 && warm > 0) {
+      output += `- **Hot → Warm Conversion:** ${((warm / hot) * 100).toFixed(1)}%\n`;
+    }
+    if (contacts.length > 0 && reservations > 0) {
+      output += `- **Contacts → Reservations:** ${((reservations / contacts.length) * 100).toFixed(1)}%\n`;
+    }
+    if (contacts.length > 0 && contracts > 0) {
+      output += `- **Overall Close Rate:** ${((contracts / contacts.length) * 100).toFixed(1)}%\n`;
+    }
+
+    output += `\n---\n**Data Source:** ${contacts.length} engaged contacts analyzed from ${contactIdArray.length} unique interaction participants\n`;
+
+    return {
+      content: [{
+        type: "text",
+        text: output
+      }]
+    };
+
+  } catch (error) {
+    throw new Error(`Failed to analyze sales funnel: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 /**

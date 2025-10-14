@@ -5,6 +5,46 @@ All notable changes to the Spark.re MCP Server will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2025-10-13
+
+### Added
+- **get_sales_funnel**: Sales pipeline analytics tool
+  - Returns rating distribution for engaged contacts (contacts with interactions)
+  - Calculates stage conversion rates (New → Hot, Hot → Warm, etc.)
+  - Shows engagement rate (% of total contacts with interactions)
+  - Calculates overall close rate and reservation conversion
+  - Uses interaction-based workaround: fetches interactions → extracts contact IDs → batch fetches contacts → aggregates ratings
+  - Supports time-based filtering (`days_ago` parameter to analyze last N days)
+  - Caps at 1000 interactions (10 pages) for performance
+  - Batches contact fetches in groups of 100 (API limit)
+  - Properly uses `ratings[0].value` format discovered in v1.5.3
+
+### Fixed
+- **get_sales_funnel**: Fixed ratings not appearing in sales funnel analysis
+  - **Root cause:** Spark API's `/contacts` list endpoint returns "light" contact data without `ratings`, `projects`, `notes`, `team_members`, and other nested fields
+  - **Solution:** Changed from batch list endpoint to individual contact fetches using `/contacts/{id}` endpoint
+  - Fetches contacts in batches of 10 concurrent requests for performance (e.g., 176 contacts = ~18 seconds)
+  - Individual endpoint returns full contact data with 49 fields including ratings array
+  - Added visible debug information in tool response showing:
+    - Number of contacts with/without ratings
+    - Sample contacts with ratings (showing actual rating values and colors)
+    - Sample contacts without ratings (showing raw ratings field data)
+    - Total rating categories found
+  - Added handling for empty ratings with helpful error message
+  - Now accurately displays rating distribution (Agent, Not Interested, Warm, etc.)
+
+### Changed
+- Updated tool count: 15 tools total (was 14)
+
+## [1.5.3] - 2025-10-13
+
+### Fixed
+- **Contact rating display bug**: Contacts now correctly show their ratings instead of "Not rated"
+  - Fixed `handleGetContactDetails()` (line 723-726) to read from `ratings` array
+  - Fixed `formatContactsResponse()` (line 668-670) to read from `ratings` array
+  - Root cause: Spark API returns ratings as an array of objects `[{id, value, color, position}]`, not as individual properties
+  - Now properly extracts rating value from first element of ratings array
+
 ## [1.5.2] - 2025-10-11
 
 ### Fixed
