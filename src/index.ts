@@ -4,14 +4,18 @@
  * Spark.re MCP Server
  * Model Context Protocol server for Spark.re CRM API
  *
- * Version: 1.5.1
- * Last Updated: 2025-10-11
+ * Version: 1.6.1
+ * Last Updated: 2025-10-22
  *
- * CRITICAL BUG FIXES (v1.5.1):
- * - Fixed auto-enrichment endpoints (was using wrong URLs with underscores instead of dashes)
- * - list_team_members now works correctly using /team-members endpoint
- * - list_ratings now works correctly using /contact-ratings endpoint
- * - Team member and interaction type names now display properly in all summaries
+ * CRITICAL FIX (v1.6.1):
+ * - get_lead_sources now returns TOTAL contact counts matching Spark UI (e.g., 81 Website leads)
+ * - Previous version only showed "engaged" contacts with interactions (e.g., 43 Website leads)
+ * - Critical for marketing ROI analysis - need to see ALL leads generated, not just contacted ones
+ * - Fetches all contacts by registration_source_id, then filters by project using projects array
+ *
+ * Recent enhancements (v1.6.0):
+ * - get_sales_funnel: Sales pipeline analytics with rating distribution and conversion metrics
+ * - Uses interaction-based workaround for proper contact/rating data retrieval
  *
  * Recent enhancements (v1.5.0):
  * - AUTOMATIC ID ENRICHMENT: All tool responses now automatically show human-readable names
@@ -1599,6 +1603,9 @@ async function handleGetInteractionSummary(args: any) {
 
 /**
  * Tool handler: Get lead sources (Analytics)
+ *
+ * FIXED (v1.6.1): Now returns TOTAL contact counts per source (matching Spark UI),
+ * not just engaged contacts. Uses proper project filtering via projects array.
  */
 async function handleGetLeadSources(args: any) {
   const {
@@ -1609,39 +1616,22 @@ async function handleGetLeadSources(args: any) {
   } = args;
 
   try {
-    // Fetch contacts to analyze sources
-    const params: Record<string, any> = {
-      per_page: 100 // Get a good sample size
-    };
+    // Step 1: Get ALL registration sources for the project
+    const sourcesResponse: any = await sparkApi.get(`/registration-sources?project_id_eq=${project_id || ''}&per_page=100`);
+    let sources: any[] = Array.isArray(sourcesResponse) ? sourcesResponse :
+                        (sourcesResponse?.data ? sourcesResponse.data : []);
 
-    if (project_id) params.project_id_eq = project_id;
-
-    // Date filtering
-    if (days_ago) {
-      const cutoffDate = new Date();
-      cutoffDate.setDate(cutoffDate.getDate() - days_ago);
-      params.created_at_gteq = cutoffDate.toISOString();
+    if (sources.length === 0) {
+      return {
+        content: [{
+          type: "text",
+          text: "No registration sources found for this project."
+        }]
+      };
     }
 
-    const queryString = sparkApi.buildQueryString(params);
-    const response: any = await sparkApi.get(`/contacts${queryString}`);
-
-    // Handle different response formats
-    let contacts: any[] = [];
-    if (Array.isArray(response)) {
-      contacts = response;
-    } else if (response && response.data && Array.isArray(response.data)) {
-      contacts = response.data;
-    } else if (response && typeof response === 'object' && response.id) {
-      contacts = [response];
-    }
-
-    // Filter out agents if requested
-    if (!include_agent_sources) {
-      contacts = contacts.filter(c => !c.agent);
-    }
-
-    // Aggregate by source
+    // Step 2: For each source, get ALL contacts with that source
+    // Then filter by project using the projects array
     const sourceStats = new Map<string, {
       count: number;
       withEmail: number;
@@ -1649,51 +1639,135 @@ async function handleGetLeadSources(args: any) {
       withInteraction: number;
       agents: number;
       recentActivity: number;
-      sourceId?: number;
+      sourceId: number;
     }>();
 
-    contacts.forEach(contact => {
-      const source = contact.marketing_source || `Source ID ${contact.registration_source_id}` || 'Unknown';
+    for (const source of sources) {
+      const sourceId = source.id;
+      const sourceName = source.name;
 
-      if (!sourceStats.has(source)) {
-        sourceStats.set(source, {
-          count: 0,
-          withEmail: 0,
-          withPhone: 0,
-          withInteraction: 0,
-          agents: 0,
-          recentActivity: 0,
-          sourceId: contact.registration_source_id
-        });
+      // Fetch ALL contacts with this registration source
+      let allContactsForSource: any[] = [];
+      let page = 1;
+      let hasMore = true;
+
+      while (hasMore && page <= 10) { // Safety limit: max 10 pages (1000 contacts) per source
+        const params: Record<string, any> = {
+          registration_source_id_eq: sourceId,
+          per_page: 100,
+          page: page
+        };
+
+        // Add date filtering if requested
+        if (days_ago) {
+          const cutoffDate = new Date();
+          cutoffDate.setDate(cutoffDate.getDate() - days_ago);
+          params.created_at_gteq = cutoffDate.toISOString();
+        }
+
+        const queryString = sparkApi.buildQueryString(params);
+        const response: any = await sparkApi.getWithPagination(`/contacts${queryString}`);
+
+        let contacts: any[] = Array.isArray(response.data) ? response.data :
+                             (response.data?.data ? response.data.data : []);
+
+        if (contacts.length === 0) break;
+
+        allContactsForSource.push(...contacts);
+        hasMore = response.pagination?.hasMore || false;
+        page++;
       }
 
-      const stats = sourceStats.get(source)!;
-      stats.count++;
-      if (contact.email) stats.withEmail++;
-      if (contact.phone || contact.mobile_phone) stats.withPhone++;
-      if (contact.last_interaction_date) stats.withInteraction++;
-      if (contact.agent) stats.agents++;
+      // Step 3: Filter contacts by project (fetch full details to check projects array)
+      let projectContacts: any[] = [];
 
-      // Check if activity in last 30 days
-      if (contact.last_interaction_date) {
-        const lastInteraction = new Date(contact.last_interaction_date);
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        if (lastInteraction > thirtyDaysAgo) stats.recentActivity++;
+      if (project_id) {
+        // Batch fetch full contact details to check project assignment
+        const batchSize = 20; // Fetch 20 at a time for performance
+        for (let i = 0; i < allContactsForSource.length; i += batchSize) {
+          const batch = allContactsForSource.slice(i, i + batchSize);
+          const batchPromises = batch.map(c =>
+            sparkApi.get(`/contacts/${c.id}`).catch(() => null)
+          );
+          const detailedContacts = await Promise.all(batchPromises);
+
+          // Filter to contacts in the specified project
+          detailedContacts.forEach((contact: any) => {
+            if (!contact) return;
+            const projects = contact.projects || [];
+            const inProject = projects.some((p: any) => p.project_id === project_id);
+            if (inProject) {
+              projectContacts.push(contact);
+            }
+          });
+        }
+      } else {
+        // No project filter - use all contacts
+        projectContacts = allContactsForSource;
       }
-    });
 
-    // Filter by minimum count
+      // Filter out agents if requested
+      if (!include_agent_sources) {
+        projectContacts = projectContacts.filter(c => !c.agent);
+      }
+
+      // Skip sources with no contacts after filtering
+      if (projectContacts.length === 0) continue;
+
+      // Aggregate stats for this source
+      const stats = {
+        count: projectContacts.length,
+        withEmail: 0,
+        withPhone: 0,
+        withInteraction: 0,
+        agents: 0,
+        recentActivity: 0,
+        sourceId: sourceId
+      };
+
+      projectContacts.forEach(contact => {
+        if (contact.email) stats.withEmail++;
+        if (contact.phone || contact.mobile_phone) stats.withPhone++;
+        if (contact.last_interaction_date) stats.withInteraction++;
+        if (contact.agent) stats.agents++;
+
+        // Check if activity in last 30 days
+        if (contact.last_interaction_date) {
+          const lastInteraction = new Date(contact.last_interaction_date);
+          const thirtyDaysAgo = new Date();
+          thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+          if (lastInteraction > thirtyDaysAgo) stats.recentActivity++;
+        }
+      });
+
+      sourceStats.set(sourceName, stats);
+    }
+
+    // Filter by minimum count and sort
     const filteredSources = Array.from(sourceStats.entries())
       .filter(([_source, stats]) => stats.count >= min_contact_count)
       .sort((a, b) => b[1].count - a[1].count);
 
+    if (filteredSources.length === 0) {
+      return {
+        content: [{
+          type: "text",
+          text: "No lead sources found matching your criteria."
+        }]
+      };
+    }
+
+    // Calculate totals
+    const totalContacts = filteredSources.reduce((sum, [_, stats]) => sum + stats.count, 0);
+
     // Format output
     let output = `# Lead Source Performance Analysis\n\n`;
-    output += `**Total Contacts Analyzed:** ${contacts.length}\n`;
+    output += `**Total Contacts Analyzed:** ${totalContacts}\n`;
     output += `**Unique Sources:** ${filteredSources.length}\n`;
     output += `**Time Period:** ${days_ago ? `Last ${days_ago} days` : 'All time'}\n`;
-    output += `**Minimum Contacts per Source:** ${min_contact_count}\n\n`;
+    output += `**Minimum Contacts per Source:** ${min_contact_count}\n`;
+    if (project_id) output += `**Project Filter:** Project ${project_id}\n`;
+    output += `\n`;
 
     output += `## Source Performance Ranking\n\n`;
 
@@ -1704,21 +1778,22 @@ async function handleGetLeadSources(args: any) {
         (stats.withInteraction / stats.count * 30)
       );
 
+      const engagementRate = Math.round(stats.withInteraction / stats.count * 100);
+
       output += `### ${index + 1}. ${source}\n`;
-      output += `- **Total Contacts:** ${stats.count} (${Math.round(stats.count / contacts.length * 100)}% of all leads)\n`;
+      output += `- **Total Contacts:** ${stats.count} (${Math.round(stats.count / totalContacts * 100)}% of all leads)\n`;
+      output += `- **Engagement Rate:** ${engagementRate}% (${stats.withInteraction} of ${stats.count} contacted)\n`;
       output += `- **Contact Quality Score:** ${contactQualityScore}/100\n`;
       output += `- **Data Completeness:**\n`;
       output += `  - With Email: ${stats.withEmail} (${Math.round(stats.withEmail/stats.count*100)}%)\n`;
       output += `  - With Phone: ${stats.withPhone} (${Math.round(stats.withPhone/stats.count*100)}%)\n`;
-      output += `- **Engagement:**\n`;
-      output += `  - Have Interaction History: ${stats.withInteraction} (${Math.round(stats.withInteraction/stats.count*100)}%)\n`;
+      output += `- **Activity:**\n`;
+      output += `  - Have Interaction History: ${stats.withInteraction} (${engagementRate}%)\n`;
       output += `  - Recent Activity (30d): ${stats.recentActivity} (${Math.round(stats.recentActivity/stats.count*100)}%)\n`;
       if (stats.agents > 0) {
         output += `- **Agent Referrals:** ${stats.agents} (${Math.round(stats.agents/stats.count*100)}%)\n`;
       }
-      if (stats.sourceId) {
-        output += `- **Source ID:** ${stats.sourceId}\n`;
-      }
+      output += `- **Source ID:** ${stats.sourceId}\n`;
       output += '\n';
     });
 
@@ -1728,7 +1803,18 @@ async function handleGetLeadSources(args: any) {
     // Best source by volume
     const topSource = filteredSources[0];
     if (topSource) {
-      output += `- **Highest Volume Source:** ${topSource[0]} with ${topSource[1].count} contacts\n`;
+      output += `- **Highest Volume Source:** ${topSource[0]} with ${topSource[1].count} total contacts\n`;
+    }
+
+    // Best engagement rate
+    const engagementSorted = filteredSources
+      .filter(([_s, stats]) => stats.count >= 5) // Min 5 for meaningful stats
+      .sort((a, b) => (b[1].withInteraction / b[1].count) - (a[1].withInteraction / a[1].count));
+
+    if (engagementSorted.length > 0) {
+      const topEngaged = engagementSorted[0];
+      const rate = Math.round(topEngaged[1].withInteraction / topEngaged[1].count * 100);
+      output += `- **Highest Engagement Rate:** ${topEngaged[0]} (${rate}% contacted)\n`;
     }
 
     // Best quality source (min 5 contacts to be meaningful)
@@ -1749,21 +1835,8 @@ async function handleGetLeadSources(args: any) {
       output += `- **Highest Quality Source:** ${qualitySources[0].source} (Score: ${qualitySources[0].score}/100)\n`;
     }
 
-    // Most engaged source
-    const engagedSources = filteredSources
-      .filter(([_s, stats]) => stats.count >= 5)
-      .map(([source, stats]) => ({
-        source,
-        rate: stats.withInteraction / stats.count,
-        count: stats.count
-      }))
-      .sort((a, b) => b.rate - a.rate);
-
-    if (engagedSources.length > 0) {
-      output += `- **Most Engaged Source:** ${engagedSources[0].source} (${Math.round(engagedSources[0].rate * 100)}% have interactions)\n`;
-    }
-
-    output += `\n---\n**Analysis Ready:** Source performance data ready for ROI analysis and marketing optimization.\n`;
+    output += `\n---\n**Note:** These are TOTAL contact counts matching what you see in Spark.re. `;
+    output += `Engagement rates show what percentage have been contacted by your team.\n`;
 
     return {
       content: [{

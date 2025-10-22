@@ -5,6 +5,26 @@ All notable changes to the Spark.re MCP Server will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2025-10-22
+
+### Fixed
+- **get_lead_sources**: Now returns TOTAL contact counts matching Spark UI (e.g., 81 Website leads)
+  - **Previous behavior:** Only returned "engaged" contacts (those with interactions) - e.g., 43 Website leads
+  - **New behavior:** Returns ALL contacts with each registration source, matching what clients see in Spark.re
+  - **Root cause:** Used interaction-based filtering which excluded contacts never contacted by sales team
+  - **Solution:** Fetches all contacts by registration_source_id, then filters by project using projects array
+  - **Performance:** Batches individual contact fetches (20 at a time) to check project assignment
+  - **Use case:** Critical for marketing ROI analysis - need to see all leads generated, not just engaged ones
+  - **Breaking change:** Tool now returns higher counts (total vs engaged), but matches Spark UI exactly
+  - **Output change:** Now shows "Engagement Rate: 53% (43 of 81 contacted)" to clarify the difference
+
+### Changed
+- **get_lead_sources**: Enhanced output format
+  - Added "Engagement Rate" line showing what percentage have been contacted
+  - Reworded "Have Interaction History" to emphasize it's a subset of total
+  - Added note at bottom: "These are TOTAL contact counts matching what you see in Spark.re"
+  - Clarifies that engagement rates show % contacted by team (not total leads)
+
 ## [1.6.0] - 2025-10-13
 
 ### Added
